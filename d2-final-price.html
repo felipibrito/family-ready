@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Launch Price Ends February 17, 2027 — Family Ready</title>
+<meta name="description" content="A real countdown to the end of the Family Ready launch price: February 17, 2027, 11:59 p.m. ET. Regular prices apply from February 18, 2027.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-3NE1PWC07E"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-3NE1PWC07E');
+</script>
+<!-- Microsoft Clarity -->
+<script type="text/javascript">
+  (function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+  })(window, document, "clarity", "script", "z9qck8mlc8");
+</script>
+</head>
+<body>
+<header class="site-header">
+  <a class="wordmark" href="index.html">FAMILY <em>READY</em></a>
+</header>
+<main class="narrow">
+  <section>
+    <p class="kicker">A real deadline</p>
+    <h1>The launch price ends <em>February 17, 2027</em></h1>
+  </section>
+
+  <section class="card gold center">
+    <p>This is not a countdown that resets. The launch discount is a real window with a real end date — here it is, in the open:</p>
+    <div class="countdown" id="countdown" role="timer" aria-label="Time left at the launch price">
+      <div class="unit"><span class="num" id="cd-days">–</span><span class="lab">Days</span></div>
+      <div class="unit"><span class="num" id="cd-hours">–</span><span class="lab">Hours</span></div>
+      <div class="unit"><span class="num" id="cd-mins">–</span><span class="lab">Minutes</span></div>
+      <div class="unit"><span class="num" id="cd-secs">–</span><span class="lab">Seconds</span></div>
+    </div>
+    <p class="mut" id="cd-note">Counting down to February 17, 2027, 11:59 p.m. ET.</p>
+  </section>
+
+  <section class="card">
+    <h3>What changes on February 18, 2027</h3>
+    <table>
+      <tr><th></th><th>Until Feb 17, 2027</th><th>From Feb 18, 2027</th></tr>
+      <tr><td>The Practical Survival Guide</td><td class="now">$47</td><td>$94</td></tr>
+      <tr><td>Family Ready Action Kit</td><td class="now">$37</td><td>$74</td></tr>
+      <tr><td>Severe Weather Playbook</td><td class="now">$27</td><td>$54</td></tr>
+      <tr><td>Blackout &amp; Grid-Down Playbook</td><td class="now">$27</td><td>$54</td></tr>
+      <tr><td>Field &amp; Garden Companion</td><td class="now">$27</td><td>$54</td></tr>
+      <tr><td>The complete set</td><td class="now">$165</td><td>$330</td></tr>
+    </table>
+    <p><b>What does not change:</b> the guide itself, the free challenge, and the <b>60-day money-back guarantee</b> — those stay exactly the same at any price.</p>
+    <a class="btn" href="https://whop.com/family-ready/">Get the guide at $47</a>
+    <p class="microcopy">After February 17, this page comes down and the regular prices apply. No extensions, no exceptions — that is what makes the date worth trusting.</p>
+  </section>
+</main>
+<footer class="site-footer">
+  <nav>
+    <a href="d4-help-refunds.html">Help &amp; Refunds</a>
+    <a href="d5-terms.html">Terms of Use</a>
+    <a href="d5-privacy.html">Privacy Policy</a>
+    <a href="d5-refund.html">Refund Policy</a>
+    <a href="d5-about.html">About</a>
+    <a href="d5-contact.html">Contact</a>
+  </nav>
+  <p class="footer-note">Family Ready publishes general preparedness information. It is not medical or legal advice. In an emergency, call 911 and follow official instructions.</p>
+  <p class="footer-copy">© 2026 Family Ready · The Practical Survival Guide — 2026 edition</p>
+</footer>
+<script>
+  // Real deadline: February 17, 2027, 23:59 America/New_York.
+  // New York is on Eastern Standard Time (UTC-5) in February,
+  // so the deadline is 2027-02-18T04:59:00Z.
+  var DEADLINE = Date.UTC(2027, 1, 18, 4, 59, 0);
+  function pad(n) { return (n < 10 ? "0" : "") + n; }
+  function tick() {
+    var left = DEADLINE - Date.now();
+    if (left <= 0) {
+      document.getElementById("cd-days").textContent = "0";
+      document.getElementById("cd-hours").textContent = "00";
+      document.getElementById("cd-mins").textContent = "00";
+      document.getElementById("cd-secs").textContent = "00";
+      document.getElementById("cd-note").textContent =
+        "The launch window closed on February 17, 2027. The regular prices now apply.";
+      return;
+    }
+    var s = Math.floor(left / 1000);
+    var d = Math.floor(s / 86400); s -= d * 86400;
+    var h = Math.floor(s / 3600);  s -= h * 3600;
+    var m = Math.floor(s / 60);    s -= m * 60;
+    document.getElementById("cd-days").textContent = d;
+    document.getElementById("cd-hours").textContent = pad(h);
+    document.getElementById("cd-mins").textContent = pad(m);
+    document.getElementById("cd-secs").textContent = pad(s);
+  }
+  tick();
+  setInterval(tick, 1000);
+</script>
+</body>
+</html>
