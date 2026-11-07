@@ -275,3 +275,4 @@ form.lead-form { display: flex; flex-direction: column; gap: 14px; }
 .check-email label { flex-basis: 100%; font-weight: 600; }
 .check-email input { flex: 1 1 220px; padding: 10px 12px; border-radius: 8px; border: 1px solid rgba(128,128,128,.45); background: transparent; color: inherit; font: inherit; }
 .check-email .microcopy { flex-basis: 100%; }
+.check-email[hidden] { display: none; }
