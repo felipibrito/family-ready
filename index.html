@@ -50,6 +50,12 @@
   <section id="challenge">
     <h2>The 3-day <em>challenge</em></h2>
     <p class="progress-note" id="check-progress">Your progress: <b>0 of 3</b> days checked</p>
+    <div class="check-email" id="check-email-bar" hidden>
+      <label for="check-email">To record your check, enter the email you signed up with:</label>
+      <input type="email" id="check-email" placeholder="you@example.com" autocomplete="email">
+      <button type="button" class="btn ghost" id="check-email-save">Save</button>
+      <p class="microcopy" id="check-email-msg"></p>
+    </div>
 
     <article class="card day-card" id="day1">
       <p class="kicker left">Day 1 · Saturday, November 14, 2026</p>
@@ -139,7 +145,7 @@
     <div class="hub-links">
       <a class="hub-link" href="start.html"><b>Join the challenge</b><span>Sign up free for November 14–16</span></a>
       <a class="hub-link" href="a3-help-check-inbox.html"><b>Can't find our email?</b><span>Pull our emails out of Spam or Promotions — Gmail, Outlook, iCloud</span></a>
-      <a class="hub-link" href="b5-day2-locked.html"><b>Day 2 unlocks after Day 1</b><span>Why Day 2 waits for your Day 1 check</span></a>
+      <a class="hub-link" href="b5-day2-locked.html"><b>Day 2 opens November 15</b><span>Why Day 2 comes after Day 1</span></a>
       <a class="hub-link" href="b6-my-product.html"><b>My Product</b><span>The guide today at the regular price, with a full-price gift</span></a>
       <a class="hub-link" href="c2-guide.html"><b>The Practical Survival Guide</b><span>The complete book — with a free sample</span></a>
       <a class="hub-link" href="c3-action-kit.html"><b>Family Ready Action Kit</b><span>Workbook, printable cards and audio edition</span></a>
@@ -170,11 +176,24 @@
 </footer>
 <script>
 (function () {
+  var CHECKS_URL = 'https://hook.us2.make.com/mzjvi8tazzmx435v3n08vb7n1h47b6om';
   var KEY = 'fr-challenge-checks';
+  var EKEY = 'fr-challenge-email';
   var saved = {};
   try { saved = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { saved = {}; }
+  var email = '';
+  try {
+    var fromUrl = new URLSearchParams(window.location.search).get('email');
+    if (fromUrl) { email = fromUrl.trim(); localStorage.setItem(EKEY, email); }
+    else { email = localStorage.getItem(EKEY) || ''; }
+  } catch (e) {}
   var btns = document.querySelectorAll('[data-check]');
   var note = document.getElementById('check-progress');
+  var bar = document.getElementById('check-email-bar');
+  var input = document.getElementById('check-email');
+  var saveBtn = document.getElementById('check-email-save');
+  var msg = document.getElementById('check-email-msg');
+  var pendingDay = null;
   function render() {
     var n = 0;
     btns.forEach(function (b) {
@@ -186,14 +205,43 @@
     });
     if (note) note.innerHTML = 'Your progress: <b>' + n + ' of 3</b> days checked';
   }
+  function sendCheck(day) {
+    if (!email) {
+      pendingDay = day;
+      if (bar) { bar.hidden = false; }
+      if (msg) msg.textContent = 'One quick step: tell us which email you signed up with, so your Day ' + day + ' check counts toward your gifts and early access.';
+      if (input) { try { input.focus(); } catch (e) {} }
+      return;
+    }
+    try {
+      fetch(CHECKS_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email, day: Number(day) }),
+        keepalive: true
+      }).catch(function () {});
+    } catch (e) {}
+  }
   btns.forEach(function (b) {
     b.addEventListener('click', function () {
       var d = b.getAttribute('data-day');
       saved[d] = !saved[d];
       try { localStorage.setItem(KEY, JSON.stringify(saved)); } catch (e) {}
+      if (saved[d]) sendCheck(d);
       render();
     });
   });
+  if (saveBtn) {
+    saveBtn.addEventListener('click', function () {
+      var v = input ? (input.value || '').trim() : '';
+      if (!v || v.indexOf('@') < 0) { if (msg) msg.textContent = 'Please enter a valid email address.'; return; }
+      email = v;
+      try { localStorage.setItem(EKEY, email); } catch (e) {}
+      if (bar) bar.hidden = true;
+      if (pendingDay) { var d = pendingDay; pendingDay = null; sendCheck(d); }
+    });
+  }
+  if (input && email) input.value = email;
   render();
 })();
 </script>

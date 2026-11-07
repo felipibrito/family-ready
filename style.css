@@ -269,3 +269,9 @@ form.lead-form { display: flex; flex-direction: column; gap: 14px; }
 }
 .field input:focus { outline: 2px solid var(--goldline); border-color: transparent; }
 .form-note { text-align: center; color: var(--mut); font-size: 13px; }
+
+/* Challenge check-in email bar */
+.check-email { margin: 12px 0; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.check-email label { flex-basis: 100%; font-weight: 600; }
+.check-email input { flex: 1 1 220px; padding: 10px 12px; border-radius: 8px; border: 1px solid rgba(128,128,128,.45); background: transparent; color: inherit; font: inherit; }
+.check-email .microcopy { flex-basis: 100%; }
