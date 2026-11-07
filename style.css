@@ -215,3 +215,57 @@ td.now { color: var(--amber1); font-weight: 800; }
   main { padding: 26px 20px 48px; }
   .card { padding: 28px 28px; }
 }
+
+/* ---------- header nav (campaign pages, added 2026-11-07) ---------- */
+.site-header { flex-wrap: wrap; }
+.site-nav {
+  flex-basis: 100%;
+  display: flex; flex-wrap: wrap; gap: 4px 18px; justify-content: center;
+  margin-top: 10px;
+}
+.site-nav a {
+  color: var(--mut); text-decoration: none;
+  font-size: 13px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+}
+.site-nav a:hover { color: var(--amber1); }
+
+/* ---------- challenge days (campaign home) ---------- */
+.kicker.left { text-align: left; }
+.day-card { scroll-margin-top: 16px; }
+.video-slot {
+  aspect-ratio: 16 / 9;
+  display: flex; flex-direction: column; gap: 8px;
+  align-items: center; justify-content: center; text-align: center;
+  border: 1.5px dashed var(--goldline); border-radius: 12px;
+  background: rgba(6, 11, 22, .5);
+  color: var(--mut); font-size: 14.5px; padding: 18px;
+}
+.video-slot b {
+  font-family: 'Anton', Impact, sans-serif; font-weight: 400;
+  letter-spacing: 2px; font-size: 19px; color: #fff; text-transform: uppercase;
+}
+.btn.check-btn.done {
+  background: linear-gradient(135deg, var(--amber1), var(--amber3));
+  color: var(--dark); border: none;
+  box-shadow: 0 10px 26px rgba(255, 140, 10, .3);
+}
+.progress-note { text-align: center; color: var(--mut); font-weight: 700; font-size: 15px; }
+.progress-note b { color: var(--amber1); }
+.day-foot {
+  text-align: center; color: var(--mut); font-size: 13.5px; margin-top: -6px;
+}
+
+/* ---------- lead capture form (start page) ---------- */
+form.lead-form { display: flex; flex-direction: column; gap: 14px; }
+.field { display: flex; flex-direction: column; gap: 6px; text-align: left; }
+.field label {
+  font-size: 12.5px; font-weight: 700; letter-spacing: 1.5px;
+  text-transform: uppercase; color: var(--mut);
+}
+.field input {
+  width: 100%; padding: 14px 15px; border-radius: 10px;
+  border: 1px solid var(--line); background: rgba(6, 11, 22, .6);
+  color: var(--ink); font: inherit; font-size: 16px;
+}
+.field input:focus { outline: 2px solid var(--goldline); border-color: transparent; }
+.form-note { text-align: center; color: var(--mut); font-size: 13px; }

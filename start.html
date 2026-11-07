@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Join the Free 3-Day Challenge — Family Ready</title>
+<meta name="description" content="Sign up free for the Family Ready 3-day readiness challenge — November 14, 15 and 16, 2026. One short video and one simple action a day.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-3NE1PWC07E"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-3NE1PWC07E');
+</script>
+<!-- Microsoft Clarity -->
+<script type="text/javascript">
+  (function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+  })(window, document, "clarity", "script", "z9qck8mlc8");
+</script>
+</head>
+<body>
+<header class="site-header">
+  <a class="wordmark" href="index.html">FAMILY <em>READY</em></a>
+  <nav class="site-nav">
+    <a href="index.html#challenge">The Challenge</a>
+    <a href="c2-guide.html">The Guide</a>
+    <a href="b4-your-gifts.html">Free Gifts</a>
+    <a href="partners.html">Partners</a>
+    <a href="d4-help-refunds.html">Help</a>
+    <a href="d5-contact.html">Contact</a>
+  </nav>
+</header>
+<main class="narrow">
+  <section>
+    <p class="kicker">The free 3-day readiness challenge</p>
+    <h1>Join the <em>free challenge</em></h1>
+    <p class="lede">November 14, 15 and 16, 2026 — one short video and one simple action a day. Calm, practical, and made for ordinary families.</p>
+  </section>
+
+  <section class="card">
+    <h3>What you will do</h3>
+    <ul>
+      <li><b>Day 1 — Connect &amp; Light:</b> how your family finds each other if phones fail, and light when the lights go out</li>
+      <li><b>Day 2 — Build Your System:</b> food, water, and a plan that covers every person in your home</li>
+      <li><b>Day 3 — Go &amp; Review:</b> how your family leaves home if you ever need to — and a review of the whole plan, together</li>
+    </ul>
+    <p>Finish all 3 days and you also receive two free gifts: the <b>Family Stock Calculator</b> and a <b>Certificate of Completion</b> — plus early access to the guide on the night of November 16.</p>
+  </section>
+
+  <section class="card gold">
+    <form class="lead-form" id="lead-form" novalidate>
+      <div class="field">
+        <label for="lead-name">First name</label>
+        <input id="lead-name" name="name" type="text" autocomplete="given-name" required>
+      </div>
+      <div class="field">
+        <label for="lead-email">Email</label>
+        <input id="lead-email" name="email" type="email" autocomplete="email" required>
+      </div>
+      <div class="field">
+        <label for="lead-phone">Phone (optional)</label>
+        <input id="lead-phone" name="phone" type="tel" autocomplete="tel">
+      </div>
+      <button class="btn" type="submit">Start the free challenge</button>
+      <p class="form-note">We send the challenge lessons by email. No spam, no card — unsubscribe anytime.</p>
+    </form>
+  </section>
+
+  <section>
+    <p class="guarantee">Built from <b>FEMA, CDC, the American Red Cross, and the U.S. Army field manual FM 21-76</b> — every claim traced to an official source.</p>
+    <p class="microcopy">Already signed up? <a href="index.html#challenge">Go to the challenge</a></p>
+  </section>
+</main>
+<footer class="site-footer">
+  <nav>
+    <a href="d4-help-refunds.html">Help &amp; Refunds</a>
+    <a href="d5-terms.html">Terms of Use</a>
+    <a href="d5-privacy.html">Privacy Policy</a>
+    <a href="d5-refund.html">Refund Policy</a>
+    <a href="d5-about.html">About</a>
+    <a href="d5-contact.html">Contact</a>
+  </nav>
+  <p class="footer-note">Family Ready publishes general preparedness information. It is not medical or legal advice. In an emergency, call 911 and follow official instructions.</p>
+  <p class="footer-copy">© 2026 Family Ready · The Practical Survival Guide — 2026 edition</p>
+</footer>
+<script>
+(function () {
+  var form = document.getElementById('lead-form');
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var email = document.getElementById('lead-email').value.trim();
+    var name = document.getElementById('lead-name').value.trim();
+    if (!name || !email || email.indexOf('@') < 1) {
+      form.reportValidity();
+      return;
+    }
+    var phone = document.getElementById('lead-phone').value.trim();
+    var src = 'site';
+    try {
+      var q = new URLSearchParams(window.location.search);
+      src = q.get('utm_source') || q.get('src') || 'site';
+    } catch (err) {}
+    var payload = { email: email, name: name, phone: phone, source: src };
+    var finished = false;
+    function go() {
+      if (finished) return;
+      finished = true;
+      window.location.href = 'next-steps.html';
+    }
+    // The signup must never trap the visitor: if the webhook is slow or
+    // fails, we still send them to the thank-you page (per the Make doc:
+    // do not block the main flow if this POST fails).
+    var timer = setTimeout(go, 4000);
+    try {
+      fetch('https://hook.us2.make.com/tr3c90kb2n44912w0iihrb3p91c6ry52', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      }).then(function () { clearTimeout(timer); go(); })
+        .catch(function () { clearTimeout(timer); go(); });
+    } catch (err) {
+      clearTimeout(timer);
+      go();
+    }
+  });
+})();
+</script>
+</body>
+</html>
