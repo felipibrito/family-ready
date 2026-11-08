@@ -47,14 +47,14 @@
       <li>Essential-kit quantities, per person and for the whole household</li>
     </ul>
     <p class="mut">It opens in your browser and works offline. Print your result and keep it with your supplies.</p>
-    <a class="btn" href="calculadora.html">Open the calculator</a>
+    <a class="btn" href="calculadora.html" data-gift-claim>Open the calculator</a>
   </section>
 
   <section class="card gold">
     <h3>Gift 2 — Certificate of Completion</h3>
     <p>Your certificate for completing the free 3-day Family Ready challenge. Add your name, print it, and keep it with your family plan — a reminder that your household did the work.</p>
     <p class="mut">One honest note, in plain sight: this certificate records that you completed our free challenge. It is a personal keepsake from Family Ready — it is not an official credential, certification, or qualification of any kind.</p>
-    <a class="btn" href="certificado.html">Get my certificate</a>
+    <a class="btn" href="certificado.html" data-gift-claim>Get my certificate</a>
   </section>
 </main>
 <footer class="site-footer">
@@ -70,5 +70,37 @@
   <p class="footer-copy">© 2026 Family Ready · The Practical Survival Guide — 2026 edition</p>
   <p class="footer-copy footer-company">Family Ready Guides</p>
 </footer>
+<script>
+(function () {
+  // Family Ready — marca "brinde retirado" (Brevo GIFTS_CLAIMED via Make, cenario dos checks).
+  // A pessoa chega pelo e-mail (template 25 / E12 / E14) com ?email= na URL; sem isso, usa o
+  // e-mail salvo neste navegador no cadastro/checks (fr-challenge-email). A marca e gravada
+  // quando ela CLICA para abrir um dos brindes (calculadora ou certificado).
+  var CHECKS_URL = 'https://hook.us2.make.com/mzjvi8tazzmx435v3n08vb7n1h47b6om';
+  var email = '';
+  try {
+    var fromUrl = new URLSearchParams(window.location.search).get('email');
+    if (fromUrl) { email = fromUrl.trim(); localStorage.setItem('fr-challenge-email', email); }
+    else { email = localStorage.getItem('fr-challenge-email') || ''; }
+  } catch (e) {}
+  if (!email) return;
+  var sent = false;
+  function markClaimed() {
+    if (sent) return;
+    sent = true;
+    try {
+      fetch(CHECKS_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email, day: 'gift' }),
+        keepalive: true
+      }).catch(function () {});
+    } catch (e) {}
+  }
+  document.querySelectorAll('[data-gift-claim]').forEach(function (a) {
+    a.addEventListener('click', markClaimed);
+  });
+})();
+</script>
 </body>
 </html>
