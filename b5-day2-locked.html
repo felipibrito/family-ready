@@ -3,8 +3,27 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Day 2 Opens November 16 — Family Ready</title>
-<meta name="description" content="Day 2 of the Family Ready challenge opens on Monday, November 16, 2026, and builds on Day 1.">
+<title>Day 2 — Family Ready Challenge</title>
+<meta name="description" content="Day 2 of the Family Ready challenge opens on Monday, November 16, 2026, and builds on Day 1: food and water that last.">
+<script>
+  // Access guard: only visitors who completed the signup on index.html
+  // (localStorage 'fr-unlocked' = '1') may see this page. A visitor arriving
+  // from a challenge email link (?email=...) counts as signed up: the email
+  // param unlocks the page and is stored for the day checks.
+  (function () {
+    try {
+      if (localStorage.getItem('fr-unlocked') !== '1') {
+        var em = new URLSearchParams(window.location.search).get('email');
+        if (em && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) {
+          localStorage.setItem('fr-unlocked', '1');
+          localStorage.setItem('fr-challenge-email', em);
+        } else {
+          window.location.replace('index.html');
+        }
+      }
+    } catch (e) { /* storage unavailable: do not trap the visitor */ }
+  })();
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -25,12 +44,228 @@
     y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
   })(window, document, "clarity", "script", "z9qck8mlc8");
 </script>
+<style>
+/* ===== Page 2 — "barra" model (approved screenshot, 2026-11-08) =====
+   Standardized components shared by the Day 1 and Day 2 pages:
+   top 1-2-3 progress bar, FR guide bubble, state-tinted item cards. */
+main.pbmain { width: min(620px, 100%); }
+.pb-panel { color: #eef2f8; }
+.pb-panel [hidden] { display: none !important; }
+#lockedview[hidden], #challengeview[hidden] { display: none !important; }
+
+/* --- countdown pill (own line, never over the title) --- */
+.pb-timer {
+  display: flex; align-items: center; gap: 7px; width: fit-content;
+  margin: 2px auto 0; border: 1px solid rgba(255,178,46,.4);
+  border-radius: 999px; padding: 4px 12px;
+}
+.pb-timer small { color: #8ea3c0; font-size: 8px; letter-spacing: 1.5px; font-weight: 700; }
+.pb-timer b { color: #ffcf5c; font-size: 11.5px; font-family: 'Courier New', monospace; }
+
+/* --- opening video stage (16:9) --- */
+.pb-vstage {
+  margin: 14px 0 4px; border: 1px solid rgba(255,178,46,.35); border-radius: 18px;
+  aspect-ratio: 16/9; position: relative; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 6px;
+  background: linear-gradient(160deg, #10294d, #081527); overflow: hidden;
+  text-align: center; padding: 14px;
+}
+.pb-vstage video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; background: #000; }
+.pb-vstage .pb-live { position: relative; z-index: 3; display: flex; align-items: center; gap: 6px; color: #ff8a7a; font-size: 9px; letter-spacing: 2.5px; font-weight: 700; }
+.pb-vstage .pb-live i { width: 7px; height: 7px; border-radius: 50%; background: #ff5a4d; display: inline-block; animation: pbbl 1.2s infinite; }
+@keyframes pbbl { 0%,100% { opacity: 1; } 50% { opacity: .25; } }
+.pb-vstage > b { color: #fff; font-size: 11px; letter-spacing: 2.5px; font-weight: 600; position: relative; z-index: 3; }
+.pb-vstage .pb-snd {
+  position: relative; z-index: 3; border: 1px solid rgba(255,178,46,.5); color: #ffcf5c;
+  background: rgba(6,11,22,.55); border-radius: 999px; padding: 6px 14px;
+  font-size: 10px; letter-spacing: 1px; font-weight: 700; cursor: pointer; font-family: inherit;
+}
+.pb-vstage .pb-vp { position: absolute; left: 0; bottom: 0; height: 4px; background: linear-gradient(90deg, #ffd23e, #ff7a00); width: 0; z-index: 3; }
+.pb-vstage .pb-dim {
+  position: absolute; bottom: 8px; right: 10px; z-index: 3;
+  border: 1px solid rgba(255,255,255,.22); color: #c9d8ee; border-radius: 6px;
+  padding: 3px 8px; font-size: 9.5px; font-family: 'Courier New', monospace;
+}
+.pb-vstage .pb-continue {
+  position: relative; z-index: 3; margin-top: 8px; border: none; cursor: pointer; font-family: inherit;
+  border-radius: 999px; padding: 10px 26px; font-size: 12px; font-weight: 800; letter-spacing: 1.6px;
+  background: linear-gradient(180deg, #ffe9a8 0%, #ffd23e 48%, #efa400 100%); color: #231500;
+  box-shadow: 0 10px 24px rgba(255,178,46,.3), inset 0 1px 0 rgba(255,255,255,.75);
+}
+.pb-wait { text-align: center; color: #8ea3c0; font-size: 11.5px; margin: 14px 6px 2px; }
+.pb-skip {
+  display: block; margin: 8px auto 0; background: transparent; border: none; cursor: pointer;
+  color: #8ea3c0; font-size: 11px; text-decoration: underline; font-family: inherit;
+}
+
+/* --- TOP PROGRESS BAR (1 · 2 · 3) --- */
+.pb-bar { display: flex; align-items: center; margin: 20px 6px 0; }
+.pb-node {
+  flex: 0 0 auto; width: 46px; height: 46px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Anton', Impact, sans-serif; font-size: 19px;
+  position: relative; z-index: 2;
+}
+.pb-node.cur {
+  width: 58px; height: 58px; font-size: 24px;
+  background: #0a1526; border: 3px solid #ffb02e; color: #ffd23e;
+  box-shadow: 0 0 0 5px rgba(255,178,46,.12);
+}
+.pb-node.done { background: linear-gradient(180deg, #2bd06a, #1da34e); color: #fff; }
+.pb-node.future { background: #0d1830; border: 2px solid #2b3c5c; color: #7d93b5; }
+.pb-seg { flex: 1; height: 5px; border-radius: 99px; background: #22314e; margin: 0 7px; }
+.pb-seg.green { background: linear-gradient(90deg, #27c46a, #2fe07c); }
+.pb-bar-label {
+  text-align: center; margin-top: 11px;
+  font-size: 12px; letter-spacing: 3px; font-weight: 700; color: #8ea3c0;
+}
+.pb-bar-label b { color: #ffd23e; }
+
+/* --- title + subtitle --- */
+.pb-title {
+  font-family: 'Anton', Impact, sans-serif; text-transform: uppercase;
+  font-size: clamp(30px, 8vw, 42px); letter-spacing: 1px; line-height: 1.05;
+  color: #fff; margin: 22px 0 0; font-weight: 400; text-align: left;
+}
+.pb-title em {
+  font-style: normal;
+  background: linear-gradient(92deg, #ffd23e 5%, #ff9d0a 55%, #ff7a00 100%);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.pb-sub { color: #93a7c2; font-size: 15.5px; margin-top: 7px; line-height: 1.45; }
+
+/* --- guide bubble (FR avatar + question card) --- */
+.pb-guide-row { display: flex; gap: 12px; align-items: flex-start; margin-top: 20px; }
+.pb-guide-row.flash { animation: pbsflash 1s ease; }
+@keyframes pbsflash { 0%,100% { box-shadow: 0 0 0 0 rgba(255,178,46,0); } 30% { box-shadow: 0 0 0 4px rgba(255,178,46,.55); } }
+.pb-avatar {
+  flex: 0 0 54px; width: 54px; height: 54px; border-radius: 50%;
+  background: linear-gradient(180deg, #ffd23e, #ff9d0a);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Anton', Impact, sans-serif; font-size: 20px; color: #231500;
+  box-shadow: 0 0 0 2px rgba(255,210,62,.35), 0 6px 16px rgba(255,157,10,.3);
+}
+.pb-bubble {
+  flex: 1; min-width: 0;
+  background: linear-gradient(180deg, #0e1e3a, #0a1730);
+  border: 1px solid rgba(120,160,220,.28); border-radius: 18px;
+  padding: 14px 16px;
+}
+.pb-bubble p { font-size: 16.5px; line-height: 1.5; color: #fff; }
+.pb-bubble p b { color: #ffd23e; font-weight: 800; }
+.pb-bubble .pb-mission { margin-top: 9px; border: 1px dashed rgba(255,90,77,.6); background: rgba(255,90,77,.07); border-radius: 12px; padding: 8px 10px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.pb-bubble .pb-mission b { font-size: 10px; letter-spacing: 1.4px; color: #ff9d8a; }
+.pb-bubble .pb-mission .pb-mt { border: 1px solid rgba(255,90,77,.55); color: #ffb3a6; border-radius: 999px; padding: 3px 10px; font-size: 11px; font-family: 'Courier New', monospace; }
+
+/* --- item cards --- */
+.pb-list { margin-top: 18px; display: flex; flex-direction: column; gap: 10px; }
+.pb-card {
+  display: flex; gap: 12px; align-items: center;
+  background: rgba(255,255,255,.045); border: 1.5px solid rgba(255,255,255,.1);
+  border-radius: 16px; padding: 13px 14px;
+  transition: background .3s, border-color .3s; will-change: transform;
+}
+.pb-card.cur { border-color: rgba(255,178,46,.55); background: rgba(255,178,46,.05); }
+.pb-card.have { border-color: rgba(47,224,124,.55); background: rgba(31,157,85,.13); }
+.pb-card.na { border-color: rgba(255,180,30,.55); background: rgba(255,170,20,.09); }
+.pb-card.miss { border-color: rgba(255,90,77,.5); background: rgba(255,90,77,.07); }
+.pb-state {
+  flex: 0 0 36px; width: 36px; height: 36px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  border: 2px solid rgba(255,255,255,.25); color: #8ea3c0;
+  font-size: 13px; font-weight: 700;
+}
+.pb-card.cur .pb-state { border-color: #ffb02e; color: #ffcf5c; }
+.pb-card.have .pb-state { background: #22b45e; border-color: #22b45e; color: #fff; }
+.pb-card.na .pb-state { background: linear-gradient(180deg, #ffd23e, #ff9d0a); border-color: #ffb02e; color: #231500; }
+.pb-card.miss .pb-state { background: #d42b1e; border-color: #ff5a4d; color: #fff; }
+.pb-main { flex: 1; min-width: 0; }
+.pb-name { font-size: 16.5px; font-weight: 800; color: #fff; line-height: 1.25; }
+.pb-detail { font-size: 13px; color: #8ea3c0; margin-top: 2px; line-height: 1.4; }
+.pb-card.have .pb-detail { color: #8fe6b0; }
+.pb-card.na .pb-detail { color: #ffd98a; }
+.pb-card.miss .pb-detail { color: #ffb3a6; }
+.pb-tip { font-size: 11.5px; color: #ffcf5c; margin-top: 4px; line-height: 1.4; }
+.pb-choices { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.pb-choice {
+  border-radius: 999px; padding: 7px 13px; font-size: 11.5px; font-weight: 800;
+  letter-spacing: .8px; cursor: pointer; font-family: inherit; background: transparent;
+  border: 1.5px solid rgba(255,255,255,.28); color: #c9d8ee; transition: all .15s;
+}
+.pb-choice.c-have { border-color: rgba(47,224,124,.65); color: #4fe08a; }
+.pb-choice.c-miss { border-color: rgba(255,90,77,.55); color: #ffb3a6; }
+.pb-choice.c-na { border-color: rgba(255,180,30,.6); color: #ffcf5c; }
+.pb-pill {
+  flex: 0 0 auto; border: none; cursor: pointer; font-family: inherit;
+  border-radius: 999px; padding: 9px 16px; font-size: 12px; font-weight: 800;
+  letter-spacing: 1px;
+}
+.pb-pill.have { background: linear-gradient(180deg, #3ae374, #22b45e); color: #062b16; box-shadow: 0 6px 16px rgba(34,180,94,.3); }
+.pb-pill.na { background: linear-gradient(180deg, #ffe9a8, #ffb02e); color: #231500; box-shadow: 0 6px 16px rgba(255,178,46,.28); }
+.pb-pill.miss { background: linear-gradient(180deg, #ff6b5e, #d42b1e); color: #fff; box-shadow: 0 6px 16px rgba(212,43,30,.3); }
+
+/* --- STILL MISSING section --- */
+.pb-missing {
+  border: 1.5px dashed rgba(255,90,77,.55); background: rgba(255,90,77,.05);
+  border-radius: 18px; padding: 12px; margin-top: 16px;
+}
+.pb-missing-head { display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; padding: 2px 4px 10px; }
+.pb-missing-head b { font-size: 12px; letter-spacing: 2px; color: #ff9d8a; }
+.pb-missing-head .pb-mt2 { color: #ffb3a6; font-size: 11px; font-family: 'Courier New', monospace; border: 1px solid rgba(255,90,77,.5); border-radius: 999px; padding: 3px 10px; }
+.pb-missing .pb-list { margin-top: 0; }
+
+/* --- completion button + site link --- */
+.pb-btnzone { margin-top: 20px; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.pb-ok { position: relative; overflow: hidden; width: 100%; padding: 14px 20px; border-radius: 999px; border: 1px solid rgba(255,255,255,.13); background: rgba(255,255,255,.05); color: #8ea3c0; font-size: 14px; font-weight: 800; letter-spacing: 1.2px; cursor: pointer; font-family: inherit; }
+.pb-ok .pb-fill { position: absolute; left: 0; top: 0; bottom: 0; width: 0; border-radius: 999px; background: linear-gradient(180deg, #5ed598 0%, #27b563 48%, #178049 100%); }
+.pb-ok .pb-lbl { position: relative; z-index: 2; display: flex; align-items: center; justify-content: center; gap: 8px; }
+.pb-ok.ready { background: linear-gradient(180deg, #ffe9a8 0%, #ffd23e 48%, #efa400 100%); border-color: rgba(255,233,168,.65); color: #231500; box-shadow: 0 12px 28px rgba(255,178,46,.3), inset 0 1px 0 rgba(255,255,255,.75), inset 0 -2px 4px rgba(146,90,0,.35); }
+.pb-ok.done { border-color: rgba(94,213,152,.65); color: #fff; box-shadow: 0 12px 28px rgba(31,157,85,.32); }
+.pb-ok.done .pb-fill { animation: pbfillup .8s ease forwards; }
+@keyframes pbfillup { from { width: 0; } to { width: 100%; } }
+.pb-ok.sending { opacity: .75; cursor: wait; }
+.pb-ok.shake { animation: pbshk .4s ease; }
+@keyframes pbshk { 0%,100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
+.pb-okhint { text-align: center; color: #ff9d8a; font-size: 11.5px; min-height: 14px; }
+.pb-sitelink {
+  display: inline-flex; align-items: center; gap: 7px; margin-top: 4px;
+  padding: 9px 20px; border-radius: 999px; text-decoration: none;
+  border: 1.5px solid rgba(255,207,92,.45); color: #ffcf5c;
+  font-size: 12.5px; font-weight: 700; letter-spacing: 1.2px; transition: all .2s;
+}
+.pb-sitelink:hover { color: #ffe1a1; border-color: rgba(255,207,92,.85); }
+
+/* --- congratulations popup --- */
+.pb-popcard { margin-top: 16px; background: linear-gradient(180deg, #10294d, #081527); border: 1.5px solid rgba(255,178,46,.55); border-radius: 22px; padding: 22px 18px 18px; text-align: center; box-shadow: 0 20px 46px rgba(0,0,0,.5); animation: pbpopin .45s cubic-bezier(.2,1.4,.4,1); }
+@keyframes pbpopin { 0% { transform: scale(.88) translateY(12px); opacity: 0; } 100% { transform: scale(1) translateY(0); opacity: 1; } }
+.pb-popcard .pb-trophy { width: 60px; height: 60px; margin: 0 auto 10px; border-radius: 50%; background: linear-gradient(180deg, #ffe9a8, #efa400); display: flex; align-items: center; justify-content: center; color: #231500; box-shadow: 0 10px 26px rgba(255,178,46,.4); animation: pbring 1.6s infinite; }
+@keyframes pbring { 0%,100% { transform: scale(1); } 50% { transform: scale(1.07); } }
+.pb-popcard .pb-stars { display: flex; justify-content: center; gap: 5px; color: #ffd23e; margin-bottom: 8px; }
+.pb-popcard > b { display: block; font-size: 18px; letter-spacing: 1.5px; color: #fff; }
+.pb-popcard p { font-size: 12.5px; color: #c9d8ee; line-height: 1.6; margin-top: 8px; }
+.pb-popcard p b { color: #ffcf5c; }
+.pb-popcard .pb-when { display: block; margin-top: 10px; font-size: 11px; color: #8ea3c0; letter-spacing: 1px; }
+.pb-popcard .pb-cont { margin-top: 15px; width: 100%; padding: 12px; border: none; border-radius: 999px; background: linear-gradient(180deg, #5ed598, #178049); color: #fff; font-size: 13px; font-weight: 800; letter-spacing: 1.2px; cursor: pointer; font-family: inherit; box-shadow: 0 10px 24px rgba(31,157,85,.35); }
+
+/* --- Day 3 gifts end block --- */
+.pb-gifts-title { text-align: center; margin-top: 24px; font-size: 11.5px; letter-spacing: 2.5px; font-weight: 800; color: #ffcf5c; }
+.pb-gifts { display: flex; gap: 8px; margin-top: 10px; }
+.pb-gift { flex: 1; background: rgba(255,255,255,.045); border: 1px solid rgba(255,178,46,.3); border-radius: 14px; padding: 11px; text-align: center; }
+.pb-gift.unlocked { border-color: rgba(47,224,124,.55); }
+.pb-gift .pb-gic { width: 27px; height: 27px; margin: 0 auto 5px; border-radius: 8px; background: rgba(255,178,46,.12); border: 1px solid rgba(255,178,46,.3); display: flex; align-items: center; justify-content: center; color: #ffcf5c; }
+.pb-gift b { display: block; font-size: 11.5px; color: #fff; font-weight: 600; }
+.pb-gift span { font-size: 10px; color: #8ea3c0; display: block; margin-top: 2px; }
+.pb-replay { display: block; margin: 12px auto 0; background: transparent; border: none; color: #8ea3c0; font-size: 11px; text-decoration: underline; cursor: pointer; font-family: inherit; }
+</style>
 </head>
 <body>
 <header class="site-header">
-  <a class="wordmark" href="index.html">FAMILY <em>READY</em></a>
+  <span class="wordmark">FAMILY <em>READY</em> GUIDES</span>
 </header>
-<main class="narrow">
+
+<!-- LOCKED VIEW — shown until Monday, November 16, 2026, 12:00 AM ET
+     (the same gate this page has always had: Day 2 opens Nov 16). -->
+<main class="narrow" id="lockedview">
   <section>
     <p class="kicker">The 3-Day Challenge</p>
     <h1>Day 2 opens <em>November 16</em></h1>
@@ -47,6 +282,47 @@
     <p class="microcopy">Day 2 opens on Monday, November 16, 2026 — your Day 2 email will take you straight there.</p>
   </section>
 </main>
+
+<!-- DAY 2 CHALLENGE — the full page in the standardized "barra" model,
+     revealed by the date gate above. -->
+<main class="pbmain" id="challengeview" hidden>
+  <div class="pb-panel">
+    <div class="pb-timer"><small>GIFTS + LAUNCH PRICES OPEN IN</small><b id="cd">--</b></div>
+    <div id="stage"></div>
+    <div id="rest" hidden>
+      <div class="pb-bar" id="bar">
+        <div class="pb-node done"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"><path d="M4 12.5l5 5L20 6.5"/></svg></div>
+        <div class="pb-seg green"></div>
+        <div class="pb-node cur" id="node2">2</div>
+        <div class="pb-seg" id="seg2"></div>
+        <div class="pb-node future">3</div>
+      </div>
+      <div class="pb-bar-label">DAY 1 <b>COMPLETED</b> · DAY 2 OF 3</div>
+      <h1 class="pb-title">DAY 2 — <em>FOOD &amp; WATER</em></h1>
+      <p class="pb-sub">Yesterday you stored it. Today you make it last.</p>
+      <div class="pb-guide-row" id="story">
+        <div class="pb-avatar">FR</div>
+        <div class="pb-bubble" id="bubble"></div>
+      </div>
+      <div id="lists">
+        <div class="pb-list" id="rows"></div>
+        <div id="missing"></div>
+      </div>
+      <div class="pb-btnzone">
+        <button class="pb-ok" id="okbtn" type="button">COMPLETED</button>
+        <p class="pb-okhint" id="okhint"></p>
+        <a class="pb-sitelink" href="https://family-ready.whop.site/" target="_blank" rel="noopener">Visit our site <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 12h15M13 5l7 7-7 7"/></svg></a>
+      </div>
+      <div id="pop"></div>
+      <div class="pb-gifts-title">ON DAY 3, YOU WILL RECEIVE</div>
+      <div class="pb-gifts">
+        <div class="pb-gift" id="gift1"><div class="pb-gic"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h4"/></svg></div><b>ReadyStock Calculator</b><span data-gift-line>Complete Day 3 to unlock · Nov 17, 9:00 AM</span></div>
+        <div class="pb-gift" id="gift2"><div class="pb-gic"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="9" r="5"/><path d="M9 13l-2 8 5-3 5 3-2-8"/></svg></div><b>Completion Certificate</b><span data-gift-line>Complete Day 3 to unlock · Nov 17, 9:00 AM</span></div>
+      </div>
+      <button class="pb-replay" id="replay" type="button" hidden>Watch the video again</button>
+    </div>
+  </div>
+</main>
 <footer class="site-footer">
   <nav>
     <a href="d4-help-refunds.html">Help &amp; Refunds</a>
@@ -59,6 +335,479 @@
   <p class="footer-note">Family Ready publishes general preparedness information. It is not medical or legal advice. In an emergency, call 911 and follow official instructions.</p>
   <p class="footer-copy">© 2026 Family Ready · The Practical Survival Guide — 2026 edition</p>
   <p class="footer-copy footer-company">Family Ready Guides</p>
+  <p class="footer-copy">familyreadyguides@gmail.com</p>
 </footer>
+<script>
+(function () {
+  'use strict';
+
+  /* ============================================================
+     OPENING VIDEO: paste the hosted Day 2 video URL here when
+     the video is produced (e.g. the Cloudflare R2 file URL).
+     Empty = the page shows the styled slot with a CONTINUE
+     button, so no visitor is ever trapped.
+     ============================================================ */
+  var OPENING_VIDEO_URL = '';
+
+  var DAY_NUM = 2;
+  var CHECKS_URL = 'https://hook.us2.make.com/mzjvi8tazzmx435v3n08vb7n1h47b6om';
+  var EKEY = 'fr-challenge-email';
+  var MKEY = 'fr-d2-marks';
+  var DKEY = 'fr-d2-done';
+  var VKEY = 'fr-d2-vid';
+  var TARGET = new Date('2026-11-17T09:00:00-05:00').getTime();
+  var DAY2_AT = new Date('2026-11-16T00:00:00-05:00').getTime();
+
+  function $(id) { return document.getElementById(id); }
+  function storeGet(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+  function storeSet(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+
+  /* Visitor email — obtained exactly as the Day 1 page does:
+     ?email= in the URL wins and is saved; otherwise the email the
+     capture page stored under 'fr-challenge-email'. */
+  var params = new URLSearchParams(window.location.search);
+  var email = '';
+  try {
+    var fromUrl = params.get('email');
+    if (fromUrl) { email = fromUrl.trim(); storeSet(EKEY, email); }
+    else { email = storeGet(EKEY) || ''; }
+  } catch (e) { email = ''; }
+
+  /* ---------- clocks ---------- */
+  var cd = $('cd');
+  function pad(n) { return (n < 10 ? '0' : '') + n; }
+  function fmtHMS(ms) {
+    if (ms < 0) ms = 0;
+    var s = Math.floor(ms / 1000);
+    return pad(Math.floor(s / 3600)) + ':' + pad(Math.floor(s % 3600 / 60)) + ':' + pad(s % 60);
+  }
+  var etFmt = null;
+  try {
+    etFmt = new Intl.DateTimeFormat('en-US', {
+      timeZone: 'America/New_York', hourCycle: 'h23',
+      year: 'numeric', month: '2-digit', day: '2-digit',
+      hour: '2-digit', minute: '2-digit', second: '2-digit'
+    });
+  } catch (e) { etFmt = null; }
+  function etPartsAt(ts) {
+    var parts = {};
+    etFmt.formatToParts(new Date(ts)).forEach(function (p) { parts[p.type] = p.value; });
+    return parts;
+  }
+  function etWallToUTC(y, mo, d, h, mi, s) {
+    var want = Date.UTC(y, mo - 1, d, h, mi, s);
+    var guess = want;
+    for (var i = 0; i < 3; i++) {
+      var p = etPartsAt(guess);
+      var wall = Date.UTC(+p.year, +p.month - 1, +p.day, +p.hour, +p.minute, +p.second);
+      var diff = want - wall;
+      if (diff === 0) break;
+      guess += diff;
+    }
+    return guess;
+  }
+  function nextNineET() {
+    if (!etFmt) {
+      var n = new Date(); var t = new Date(n.getFullYear(), n.getMonth(), n.getDate(), 9, 0, 0);
+      if (t <= n) t = new Date(t.getTime() + 86400000);
+      return t.getTime();
+    }
+    var now = Date.now();
+    var p = etPartsAt(now);
+    var cand = etWallToUTC(+p.year, +p.month, +p.day, 9, 0, 0);
+    if (cand <= now) {
+      var nd = new Date(Date.UTC(+p.year, +p.month - 1, +p.day + 1));
+      cand = etWallToUTC(nd.getUTCFullYear(), nd.getUTCMonth() + 1, nd.getUTCDate(), 9, 0, 0);
+    }
+    return cand;
+  }
+  function tick() {
+    applyGate();
+    if (cd) {
+      var diff = TARGET - Date.now();
+      if (diff <= 0) { cd.textContent = 'OPEN NOW'; }
+      else {
+        var d = Math.floor(diff / 86400000);
+        cd.textContent = (d > 0 ? d + 'd ' : '') + fmtHMS(diff - d * 86400000);
+      }
+    }
+    var left = nextNineET() - Date.now();
+    var mt = $('mtimer'); if (mt) mt.textContent = fmtHMS(left);
+    var mt2 = $('mtimer2'); if (mt2) mt2.textContent = fmtHMS(left) + ' LEFT';
+    var vp = document.querySelector('.pb-vp');
+    var vid = $('openvid');
+    if (vp && vid && vid.duration) vp.style.width = Math.min(100, Math.round(vid.currentTime / vid.duration * 100)) + '%';
+    renderGifts();
+  }
+
+  /* ---------- Day 2 data (approved copy) ----------
+     [name, detail, notForUsAllowed, guideLead, guideQuestion, tip] */
+  var items = [
+    ['Water for everyone', 'Count every person', false, 'Water for everyone', 'the full count for your family?', ''],
+    ['Water for 3 days', '1 gallon a day each', false, 'Water for 3 days', '1 gallon a day for each person — is it all stored?', ''],
+    ['Pet water & food', 'For your pets', true, 'Pet water & food', 'water and food for your pets too. Do you have it? No pets — tap NOT FOR US.', ''],
+    ['No-cook food', 'Cans & bars', false, 'No-cook food', 'cans and bars that need no stove. Do you have them?', ''],
+    ['Baby & special food', 'Baby · medical · elderly', true, 'Baby & special food', 'formula, baby food or special diets, covered. Do you have it? Doesn\u2019t apply — tap NOT FOR US.', ''],
+    ['Can opener', 'Manual', false, 'Can opener', 'a manual one — cans are useless if you can\u2019t open them.', ''],
+    ['Food rotation', 'Check the dates', false, 'Food rotation', 'oldest food used first — have you checked the dates?', ''],
+    ['Cook without power', 'Outdoors only', false, 'Cook without power', 'a camp stove, used OUTSIDE only. Do you have one?', ''],
+    ['Fridge & freezer', 'Keep doors closed', false, 'Fridge & freezer', 'doors stay closed — that is what keeps the cold in. Got it?', 'Doors closed: fridge ~4 hours · full freezer ~48 hours'],
+    ['Dishes', 'Disposables save water', false, 'Dishes', 'disposables, so you don\u2019t waste water washing. Do you have them?', ''],
+    ['Hygiene', 'Wipes & sanitizer', false, 'Hygiene', 'wipes and sanitizer — clean hands with very little water?', ''],
+    ['Containers', 'Food-grade, labeled', false, 'Containers', 'food-grade and labeled — is your storage sealed right?', '']
+  ];
+  var CHK = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"><path d="M4 12.5l5 5L20 6.5"/></svg>';
+  var CRS = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"><path d="M5 5l14 14M19 5L5 19"/></svg>';
+  function star() { return '<svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.6 6.2L21 9l-5 4.2 1.6 6.8L12 16.6 6.4 20 8 13.2 3 9l6.4-.8z"/></svg>'; }
+
+  /* ---------- state ---------- */
+  var marks = {};
+  try { marks = JSON.parse(storeGet(MKEY) || '{}') || {}; } catch (e) { marks = {}; }
+  var done = storeGet(DKEY) === '1';
+  var vidSeen = storeGet(VKEY) === 'done';
+  var popOpen = false;
+  var sending = false;
+  var hintMsg = '';
+  var editingIdx = -1;
+  var stageMode = 'done'; // 'video' | 'slot' | 'done'
+
+  /* Screenshot/preview seed: ?preview=d2 renders a mid-progress state
+     (and opens the date gate) in memory only — nothing is saved and
+     nothing is sent. Without the param, this block does nothing. */
+  var PREVIEW = params.get('preview');
+  if (PREVIEW === 'd2') {
+    marks = { 1: 'have', 2: 'na', 3: 'have', 8: 'have' };
+    vidSeen = true;
+  }
+
+  function saveMarks() { if (PREVIEW) return; storeSet(MKEY, JSON.stringify(marks)); }
+  function curIdx() { for (var i = 0; i < items.length; i++) { if (!marks[i]) return i; } return -1; }
+  function markedCount() { return Object.keys(marks).length; }
+  function groupOf(i) { var m = marks[i]; return (m === 'have' || m === 'na') ? 0 : (m === 'miss' ? 2 : 1); }
+  function mainOrder() {
+    return items.map(function (_, i) { return i; })
+      .filter(function (i) { return marks[i] !== 'miss'; })
+      .sort(function (a, b) { return groupOf(a) - groupOf(b) || a - b; });
+  }
+  function missOrder() {
+    return items.map(function (_, i) { return i; })
+      .filter(function (i) { return marks[i] === 'miss'; });
+  }
+
+  /* ---------- date gate: locked view until Nov 16, 2026 (ET) ---------- */
+  var gateOpenState = null;
+  function applyGate() {
+    var open = (Date.now() >= DAY2_AT) || PREVIEW === 'd2';
+    if (open === gateOpenState) return;
+    gateOpenState = open;
+    $('lockedview').hidden = open;
+    $('challengeview').hidden = !open;
+  }
+
+  /* ---------- opening video / slot ---------- */
+  var stage = $('stage');
+  var rest = $('rest');
+  function reveal() {
+    vidSeen = true;
+    storeSet(VKEY, 'done');
+    stageMode = 'done';
+    renderStage();
+    rest.hidden = false;
+    $('replay').hidden = !OPENING_VIDEO_URL;
+  }
+  function renderStage() {
+    if (stageMode === 'done') {
+      stage.innerHTML = '<div class="pb-vstage"><b>WELCOME VIDEO</b><span class="pb-dim">16:9 · 1920 × 1080</span></div>';
+      return;
+    }
+    if (stageMode === 'slot') {
+      stage.innerHTML = '<div class="pb-vstage"><b>WELCOME VIDEO</b>' +
+        '<button class="pb-continue" id="slot-continue" type="button">CONTINUE</button>' +
+        '<span class="pb-dim">16:9 · 1920 × 1080</span></div>' +
+        '<p class="pb-wait">Your journey appears when you continue.</p>';
+      $('slot-continue').onclick = reveal;
+      return;
+    }
+    // stageMode === 'video'
+    stage.innerHTML = '<div class="pb-vstage">' +
+      '<video id="openvid" autoplay muted playsinline preload="auto" src="' + OPENING_VIDEO_URL + '"></video>' +
+      '<span class="pb-live"><i></i>PLAYING</span>' +
+      '<button class="pb-snd" id="sndbtn" type="button">TAP FOR SOUND</button>' +
+      '<button class="pb-snd" id="playbtn" type="button" hidden>TAP TO PLAY</button>' +
+      '<div class="pb-vp"></div><span class="pb-dim">16:9 · 1920 × 1080</span></div>' +
+      '<button class="pb-skip" id="skipvid" type="button">Skip intro</button>';
+    var vid = $('openvid');
+    var snd = $('sndbtn');
+    var playBtn = $('playbtn');
+    vid.addEventListener('ended', reveal);
+    vid.addEventListener('error', function () { stageMode = 'slot'; renderStage(); }, true);
+    snd.onclick = function () { vid.muted = false; snd.hidden = true; };
+    playBtn.onclick = function () { var p = vid.play(); if (p && p.catch) p.catch(function () {}); playBtn.hidden = true; };
+    $('skipvid').onclick = reveal;
+    var pr = null;
+    try { pr = vid.play(); } catch (e) { pr = null; }
+    if (pr && pr.catch) pr.catch(function () { playBtn.hidden = false; snd.hidden = true; });
+  }
+
+  /* ---------- gifts unlock state (Day 3, Nov 17 9:00 AM ET) ---------- */
+  function renderGifts() {
+    if (Date.now() < TARGET) return;
+    ['gift1', 'gift2'].forEach(function (id) {
+      var g = $(id);
+      if (g) {
+        g.classList.add('unlocked');
+        var line = g.querySelector('[data-gift-line]');
+        if (line) line.textContent = 'Unlocked — delivered by email on Day 3';
+      }
+    });
+  }
+
+  /* ---------- card builder ---------- */
+  function buildCard(i, cur) {
+    var it = items[i];
+    var m = marks[i] || '';
+    var card = document.createElement('div');
+    card.className = 'pb-card ' + m + ((i === cur && !done) ? ' cur' : '');
+    card.setAttribute('data-i', i);
+    var st = document.createElement('div');
+    st.className = 'pb-state';
+    if (m === 'have') st.innerHTML = CHK;
+    else if (m === 'na' || m === 'miss') st.innerHTML = CRS;
+    else st.textContent = (i + 1);
+    var main = document.createElement('div');
+    main.className = 'pb-main';
+    var nm = document.createElement('div');
+    nm.className = 'pb-name'; nm.textContent = it[0];
+    var dt = document.createElement('div');
+    dt.className = 'pb-detail'; dt.textContent = it[1];
+    main.appendChild(nm); main.appendChild(dt);
+    if (it[5]) {
+      var tip = document.createElement('div');
+      tip.className = 'pb-tip'; tip.textContent = it[5];
+      main.appendChild(tip);
+    }
+    card.appendChild(st); card.appendChild(main);
+    if (m && editingIdx !== i) {
+      var pill = document.createElement('button');
+      pill.type = 'button';
+      pill.className = 'pb-pill ' + m;
+      pill.textContent = (m === 'have') ? 'I HAVE IT' : (m === 'na') ? 'NOT FOR US' : "I DON'T";
+      pill.title = 'Tap to change';
+      pill.onclick = function () { editingIdx = i; render(false); };
+      card.appendChild(pill);
+    } else {
+      var ch = document.createElement('div');
+      ch.className = 'pb-choices';
+      var bh = document.createElement('button');
+      bh.type = 'button'; bh.className = 'pb-choice c-have'; bh.textContent = 'I HAVE IT';
+      bh.onclick = function () { answer(i, 'have'); };
+      var bm = document.createElement('button');
+      bm.type = 'button'; bm.className = 'pb-choice c-miss'; bm.textContent = "I DON'T";
+      bm.onclick = function () { answer(i, 'miss'); };
+      ch.appendChild(bh); ch.appendChild(bm);
+      if (it[2]) {
+        var bn = document.createElement('button');
+        bn.type = 'button'; bn.className = 'pb-choice c-na'; bn.textContent = 'NOT FOR US';
+        bn.onclick = function () { answer(i, 'na'); };
+        ch.appendChild(bn);
+      }
+      main.appendChild(ch);
+    }
+    return card;
+  }
+
+  /* ---------- main render ---------- */
+  function render(anim) {
+    var lists = $('lists');
+    var oldTops = null;
+    if (anim) {
+      oldTops = {};
+      var olds = lists.querySelectorAll('.pb-card');
+      for (var o = 0; o < olds.length; o++) oldTops[olds[o].getAttribute('data-i')] = olds[o].getBoundingClientRect().top;
+    }
+    var cur = curIdx();
+    var marked = markedCount();
+
+    /* guide bubble: question of the next unanswered item */
+    var bb = $('bubble');
+    if (done) {
+      bb.innerHTML = '<p>Day 2 complete. Tomorrow, Day 3, you receive your <b>Certificate</b> and the <b>ReadyStock Calculator</b>.</p>';
+    } else if (cur === -1) {
+      bb.innerHTML = '<p>All 12 stops checked. Press COMPLETED to finish Day 2.</p>';
+    } else {
+      bb.innerHTML = '<p><b>' + items[cur][3] + '</b> — ' + items[cur][4] + '</p>';
+    }
+
+    /* top bar: own-day node turns green once the day is completed */
+    var node2 = $('node2');
+    if (node2) {
+      if (done) {
+        node2.className = 'pb-node done'; node2.innerHTML = CHK;
+        $('seg2').className = 'pb-seg green';
+      } else {
+        node2.className = 'pb-node cur'; node2.textContent = '2';
+        $('seg2').className = 'pb-seg';
+      }
+    }
+
+    /* main list (have/na float up, unanswered in order) */
+    var rows = $('rows');
+    rows.innerHTML = '';
+    mainOrder().forEach(function (i) { rows.appendChild(buildCard(i, cur)); });
+
+    /* STILL MISSING section at the bottom */
+    var miss = missOrder();
+    var mb = $('missing');
+    if (miss.length > 0) {
+      mb.innerHTML = '';
+      var sec = document.createElement('div');
+      sec.className = 'pb-missing';
+      var head = document.createElement('div');
+      head.className = 'pb-missing-head';
+      head.innerHTML = '<b>STILL MISSING</b><span class="pb-mt2" id="mtimer2"></span>';
+      var list = document.createElement('div');
+      list.className = 'pb-list';
+      miss.forEach(function (i) { list.appendChild(buildCard(i, cur)); });
+      sec.appendChild(head); sec.appendChild(list);
+      mb.appendChild(sec);
+    } else { mb.innerHTML = ''; }
+
+    /* FLIP: glide cards from their old positions to the new ones */
+    if (oldTops) {
+      var news = lists.querySelectorAll('.pb-card'), moves = [];
+      for (var n = 0; n < news.length; n++) {
+        var idx = news[n].getAttribute('data-i');
+        if (oldTops[idx] !== undefined) {
+          var dy = oldTops[idx] - news[n].getBoundingClientRect().top;
+          if (Math.abs(dy) > 2) moves.push([news[n], dy]);
+        }
+      }
+      moves.forEach(function (mv) { mv[0].style.transform = 'translateY(' + mv[1] + 'px)'; mv[0].style.transition = 'none'; });
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () {
+          moves.forEach(function (mv) { mv[0].style.transition = 'transform .55s ease'; mv[0].style.transform = ''; });
+        });
+      });
+    }
+
+    /* completion button */
+    var ok = $('okbtn');
+    if (done) {
+      ok.className = 'pb-ok done';
+      ok.innerHTML = '<span class="pb-fill"></span><span class="pb-lbl">' + CHK + ' COMPLETED</span>';
+    } else if (marked >= items.length) {
+      ok.className = 'pb-ok ready' + (sending ? ' sending' : '');
+      ok.innerHTML = '<span class="pb-lbl">COMPLETED</span>';
+    } else {
+      ok.className = 'pb-ok';
+      ok.innerHTML = '<span class="pb-lbl">COMPLETED — ' + marked + ' OF 12</span>';
+    }
+    $('okhint').textContent = hintMsg;
+
+    /* congratulations popup — Day 3 gifts announcement */
+    var pop = $('pop');
+    if (popOpen && done) {
+      pop.innerHTML = '<div class="pb-popcard" id="popcard">' +
+        '<div class="pb-trophy"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4h10v5a5 5 0 0 1-10 0zM7 5H4a3 3 0 0 0 3 4M17 5h3a3 3 0 0 1-3 4M12 14v3M8 20h8M12 17l-1.5 3h3z"/></svg></div>' +
+        '<div class="pb-stars">' + star() + star() + star() + '</div>' +
+        '<b>CONGRATULATIONS!</b>' +
+        '<p>You just completed <b>Day 2</b> — and that is a real victory. Your food and water now last.</p>' +
+        '<p>Tomorrow is <b>Day 3</b> — complete it and you receive your <b>Completion Certificate</b> and the <b>ReadyStock Calculator</b>, delivered by email.</p>' +
+        '<span class="pb-when">DAY 3 OPENS TUESDAY, NOVEMBER 17</span>' +
+        '<button class="pb-cont" id="popClose" type="button">CONTINUE</button></div>';
+      $('popClose').onclick = function () { popOpen = false; render(false); };
+      setTimeout(function () {
+        var pc = $('popcard');
+        if (pc) pc.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 80);
+    } else { pop.innerHTML = ''; }
+    tick();
+  }
+
+  function answer(i, v) {
+    hintMsg = '';
+    marks[i] = v;
+    editingIdx = -1;
+    saveMarks();
+    render(true);
+  }
+
+  /* ---------- completed button: the registration moment ---------- */
+  $('okbtn').onclick = function () {
+    var ok = $('okbtn');
+    if (sending) return;
+    if (done) { popOpen = true; render(false); return; }
+    if (markedCount() < items.length) {
+      hintMsg = 'Your guide is waiting at stop ' + (curIdx() + 1) + ' of 12.';
+      $('okhint').textContent = hintMsg;
+      ok.classList.remove('shake'); void ok.offsetWidth; ok.classList.add('shake');
+      var story = $('story');
+      if (story) {
+        story.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        story.classList.remove('flash'); void story.offsetWidth; story.classList.add('flash');
+      }
+      return;
+    }
+    if (!email) {
+      hintMsg = 'Your email was not found on this device — open this page from the link in your email.';
+      $('okhint').textContent = hintMsg;
+      return;
+    }
+    if (PREVIEW) { // screenshots never send a real check
+      done = true; popOpen = true; hintMsg = ''; render(false);
+      return;
+    }
+    sending = true;
+    ok.classList.add('sending');
+    fetch(CHECKS_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: email, day: DAY_NUM })
+    }).then(function (r) {
+      sending = false;
+      if (r.ok) {
+        done = true;
+        storeSet(DKEY, '1');
+        popOpen = true;
+        hintMsg = '';
+        render(false);
+      } else {
+        hintMsg = 'Connection issue — tap COMPLETED to try again.';
+        render(false);
+      }
+    }).catch(function () {
+      sending = false;
+      hintMsg = 'Connection issue — tap COMPLETED to try again.';
+      render(false);
+    });
+  };
+
+  $('replay').onclick = function () {
+    rest.hidden = true;
+    stageMode = 'video';
+    renderStage();
+    stage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  };
+
+  /* ---------- init ---------- */
+  applyGate();
+  if (vidSeen) {
+    stageMode = 'done';
+    renderStage();
+    rest.hidden = false;
+    $('replay').hidden = !OPENING_VIDEO_URL;
+  } else if (OPENING_VIDEO_URL) {
+    stageMode = 'video';
+    renderStage();
+  } else {
+    stageMode = 'slot';
+    renderStage();
+  }
+  render(false);
+  renderGifts();
+  setInterval(tick, 1000);
+  tick();
+})();
+</script>
 </body>
 </html>
