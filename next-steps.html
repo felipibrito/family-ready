@@ -45,223 +45,257 @@
   })(window, document, "clarity", "script", "z9qck8mlc8");
 </script>
 <style>
-/* ===== Page 2 (B17 design) components ===== */
-main.p2main { width: min(620px, 100%); }
-.p2-panel {
-  background: linear-gradient(180deg, #0a1a33 0%, #060b16 70%);
-  border: 1px solid rgba(120,160,220,.16);
-  border-radius: 22px;
-  padding: 24px 20px;
-  box-shadow: 0 18px 50px rgba(0,0,0,.45);
-  color: #eef2f8;
-}
-.p2-panel [hidden] { display: none !important; }
-.p2-timer {
+/* ===== Page 2 — "barra" model (approved screenshot, 2026-11-08) =====
+   Standardized components shared by the Day 1 and Day 2 pages:
+   top 1-2-3 progress bar, FR guide bubble, state-tinted item cards. */
+main.pbmain { width: min(620px, 100%); }
+.pb-panel { color: #eef2f8; }
+.pb-panel [hidden] { display: none !important; }
+
+/* --- countdown pill (own line, never over the title) --- */
+.pb-timer {
   display: flex; align-items: center; gap: 7px; width: fit-content;
   margin: 2px auto 0; border: 1px solid rgba(255,178,46,.4);
   border-radius: 999px; padding: 4px 12px;
 }
-.p2-timer small { color: #8ea3c0; font-size: 8px; letter-spacing: 1.5px; font-weight: 700; }
-.p2-timer b { color: #ffcf5c; font-size: 11.5px; font-family: 'Courier New', monospace; }
-.p2-vstage {
+.pb-timer small { color: #8ea3c0; font-size: 8px; letter-spacing: 1.5px; font-weight: 700; }
+.pb-timer b { color: #ffcf5c; font-size: 11.5px; font-family: 'Courier New', monospace; }
+
+/* --- opening video stage (16:9) --- */
+.pb-vstage {
   margin: 14px 0 4px; border: 1px solid rgba(255,178,46,.35); border-radius: 18px;
   aspect-ratio: 16/9; position: relative; display: flex; flex-direction: column;
   align-items: center; justify-content: center; gap: 6px;
   background: linear-gradient(160deg, #10294d, #081527); overflow: hidden;
   text-align: center; padding: 14px;
 }
-.p2-vstage video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; background: #000; }
-.p2-vstage .p2-live { position: relative; z-index: 3; display: flex; align-items: center; gap: 6px; color: #ff8a7a; font-size: 9px; letter-spacing: 2.5px; font-weight: 700; }
-.p2-vstage .p2-live i { width: 7px; height: 7px; border-radius: 50%; background: #ff5a4d; display: inline-block; animation: p2bl 1.2s infinite; }
-@keyframes p2bl { 0%,100% { opacity: 1; } 50% { opacity: .25; } }
-.p2-vstage > b { color: #fff; font-size: 11px; letter-spacing: 2.5px; font-weight: 600; position: relative; z-index: 3; }
-.p2-vstage .p2-snd {
+.pb-vstage video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; background: #000; }
+.pb-vstage .pb-live { position: relative; z-index: 3; display: flex; align-items: center; gap: 6px; color: #ff8a7a; font-size: 9px; letter-spacing: 2.5px; font-weight: 700; }
+.pb-vstage .pb-live i { width: 7px; height: 7px; border-radius: 50%; background: #ff5a4d; display: inline-block; animation: pbbl 1.2s infinite; }
+@keyframes pbbl { 0%,100% { opacity: 1; } 50% { opacity: .25; } }
+.pb-vstage > b { color: #fff; font-size: 11px; letter-spacing: 2.5px; font-weight: 600; position: relative; z-index: 3; }
+.pb-vstage .pb-snd {
   position: relative; z-index: 3; border: 1px solid rgba(255,178,46,.5); color: #ffcf5c;
   background: rgba(6,11,22,.55); border-radius: 999px; padding: 6px 14px;
   font-size: 10px; letter-spacing: 1px; font-weight: 700; cursor: pointer; font-family: inherit;
 }
-.p2-vstage .p2-vp { position: absolute; left: 0; bottom: 0; height: 4px; background: linear-gradient(90deg, #ffd23e, #ff7a00); width: 0; z-index: 3; }
-.p2-vstage .p2-dim {
+.pb-vstage .pb-vp { position: absolute; left: 0; bottom: 0; height: 4px; background: linear-gradient(90deg, #ffd23e, #ff7a00); width: 0; z-index: 3; }
+.pb-vstage .pb-dim {
   position: absolute; bottom: 8px; right: 10px; z-index: 3;
   border: 1px solid rgba(255,255,255,.22); color: #c9d8ee; border-radius: 6px;
   padding: 3px 8px; font-size: 9.5px; font-family: 'Courier New', monospace;
 }
-.p2-vstage .p2-continue {
+.pb-vstage .pb-continue {
   position: relative; z-index: 3; margin-top: 8px; border: none; cursor: pointer; font-family: inherit;
   border-radius: 999px; padding: 10px 26px; font-size: 12px; font-weight: 800; letter-spacing: 1.6px;
   background: linear-gradient(180deg, #ffe9a8 0%, #ffd23e 48%, #efa400 100%); color: #231500;
   box-shadow: 0 10px 24px rgba(255,178,46,.3), inset 0 1px 0 rgba(255,255,255,.75);
 }
-.p2-wait { text-align: center; color: #8ea3c0; font-size: 11.5px; margin: 14px 6px 2px; }
-.p2-skip {
+.pb-wait { text-align: center; color: #8ea3c0; font-size: 11.5px; margin: 14px 6px 2px; }
+.pb-skip {
   display: block; margin: 8px auto 0; background: transparent; border: none; cursor: pointer;
   color: #8ea3c0; font-size: 11px; text-decoration: underline; font-family: inherit;
 }
-.p2-jstrip { display: flex; margin: 16px 2px 0; }
-.p2-jday { flex: 1; text-align: center; position: relative; padding: 0 2px; }
-.p2-jday::before {
-  content: ''; position: absolute; top: 20px; left: -50%; width: 100%;
-  border-top: 3px dotted rgba(255,178,46,.45);
+
+/* --- TOP PROGRESS BAR (1 · 2 · 3) --- */
+.pb-bar { display: flex; align-items: center; margin: 20px 6px 0; }
+.pb-node {
+  flex: 0 0 auto; width: 46px; height: 46px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Anton', Impact, sans-serif; font-size: 19px;
+  position: relative; z-index: 2;
 }
-.p2-jday:first-child::before { display: none; }
-.p2-jstrip.d1done .p2-jday:nth-child(2)::before { border-top: 3px solid #2fe07c; }
-.p2-jnode {
-  width: 40px; height: 40px; margin: 0 auto; border-radius: 50%;
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  position: relative; z-index: 2; font-size: 16px; font-weight: 700;
+.pb-node.cur {
+  width: 58px; height: 58px; font-size: 24px;
+  background: #0a1526; border: 3px solid #ffb02e; color: #ffd23e;
+  box-shadow: 0 0 0 5px rgba(255,178,46,.12);
 }
-.p2-jnode.open { background: linear-gradient(180deg, #ffd23e, #ff9d0a); color: #231500; box-shadow: 0 0 0 4px rgba(255,178,46,.18); }
-.p2-jnode.done { background: linear-gradient(180deg, #25b765, #178a49); color: #fff; }
-.p2-jnode.lock { background: rgba(10,22,44,.92); border: 1.5px solid rgba(255,255,255,.18); color: #7d93b5; }
-.p2-jnode.gift { border: 1.5px solid rgba(255,178,46,.55); background: rgba(255,178,46,.1); color: #ffcf5c; }
-.p2-jcap { margin-top: 6px; }
-.p2-jcap b { display: block; font-size: 11px; color: #fff; font-weight: 600; }
-.p2-jcap span { font-size: 9.5px; color: #8ea3c0; }
-</style>
-</head>
-<style>
-.p2-h2 { font-family: 'Inter', sans-serif; text-transform: none; letter-spacing: 0; font-size: 17px; font-weight: 700; margin: 18px 0 8px; color: #fff; }
-.p2-trust { display: flex; gap: 7px; align-items: center; color: #8ea3c0; font-size: 11px; margin-bottom: 12px; }
-.p2-trust svg { flex: 0 0 15px; color: #2fe07c; }
-.p2-story { display: flex; gap: 10px; align-items: flex-start; background: rgba(255,255,255,.045); border: 1px solid rgba(255,178,46,.35); border-radius: 16px; padding: 12px; margin-bottom: 12px; }
-.p2-story.flash { animation: p2sflash 1s ease; }
-@keyframes p2sflash { 0%,100% { box-shadow: 0 0 0 0 rgba(255,178,46,0); } 30% { box-shadow: 0 0 0 4px rgba(255,178,46,.55); } }
-.p2-guide { flex: 0 0 46px; width: 46px; height: 46px; border-radius: 50%; background: linear-gradient(180deg, #ffd23e, #ff9d0a); display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(255,157,10,.35); }
-.p2-bubble { flex: 1; min-width: 0; }
-.p2-bubble .p2-who { font-size: 8.5px; letter-spacing: 1.8px; color: #ffcf5c; font-weight: 700; margin-bottom: 4px; }
-.p2-bubble p { font-size: 12.5px; line-height: 1.55; color: #eef2f8; }
-.p2-bubble .p2-sbtns { display: flex; gap: 6px; margin-top: 9px; }
-.p2-bubble .p2-sbtns button { border-radius: 999px; padding: 8px 16px; font-size: 12px; cursor: pointer; font-family: inherit; border: 1px solid rgba(255,255,255,.22); background: transparent; color: #c9d8ee; }
-.p2-bubble .p2-sbtns .p2-yes { background: #1f9d55; border-color: #27c46a; color: #fff; font-weight: 700; }
-.p2-bubble .p2-sbtns .p2-no { background: rgba(255,90,77,.14); border-color: rgba(255,90,77,.6); color: #ffc9c0; }
-.p2-mission { margin-top: 9px; border: 1px dashed rgba(255,90,77,.6); background: rgba(255,90,77,.07); border-radius: 12px; padding: 8px 10px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-.p2-mission b { font-size: 10px; letter-spacing: 1.4px; color: #ff9d8a; }
-.p2-mission .p2-mt { border: 1px solid rgba(255,90,77,.55); color: #ffb3a6; border-radius: 999px; padding: 3px 10px; font-size: 11px; font-family: 'Courier New', monospace; }
-.p2-comp { margin-bottom: 12px; }
-.p2-comp .p2-lbl { display: flex; justify-content: flex-end; margin-bottom: 5px; }
-.p2-comp .p2-lbl b { color: #2fe07c; font-size: 16px; font-weight: 700; display: inline-block; }
-.p2-comp .p2-lbl b.p2-pop { animation: p2pp .5s ease; }
-@keyframes p2pp { 0% { transform: scale(1); } 40% { transform: scale(1.45); } 100% { transform: scale(1); } }
-.p2-comp .p2-track { height: 9px; border-radius: 99px; background: rgba(255,255,255,.09); overflow: hidden; }
-.p2-comp .p2-track i { display: block; height: 100%; width: 0; border-radius: 99px; background: linear-gradient(90deg, #ffd23e, #2fe07c); transition: width .35s; }
-.p2-missing { border: 1px dashed rgba(255,90,77,.55); background: rgba(255,90,77,.06); border-radius: 14px; padding: 10px 12px; margin-bottom: 13px; }
-.p2-missing .p2-mh { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; flex-wrap: wrap; }
-.p2-missing b { font-size: 11px; letter-spacing: 1.5px; color: #ff9d8a; }
-.p2-missing .p2-mt2 { color: #ffb3a6; font-size: 11px; font-family: 'Courier New', monospace; }
-.p2-missing .p2-chips { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 7px; }
-.p2-missing .p2-chip { border: 1px solid rgba(255,90,77,.5); color: #ffc9c0; border-radius: 999px; padding: 3.5px 9px; font-size: 10.5px; }
-.p2-trail { position: relative; }
-.p2-rail { position: absolute; left: 16px; top: 14px; bottom: 14px; width: 0; border-left: 3px dotted rgba(255,178,46,.4); }
-.p2-railfill { position: absolute; left: 16px; top: 14px; width: 0; border-left: 3.5px solid #2fe07c; transition: height .6s ease; }
-.p2-srow { display: flex; gap: 10px; align-items: stretch; margin-bottom: 7px; position: relative; will-change: transform; }
-.p2-snode { flex: 0 0 34px; width: 34px; height: 34px; border-radius: 50%; margin-top: 9px; position: relative; z-index: 2; display: flex; align-items: center; justify-content: center; background: #0a1a33; border: 2px solid rgba(255,255,255,.22); color: #8ea3c0; font-size: 12px; font-weight: 700; }
-.p2-snode.cur { border-color: #ffb02e; background: rgba(255,178,46,.14); color: #ffcf5c; animation: p2pl 1.8s infinite; }
-@keyframes p2pl { 0%,100% { transform: scale(1); } 50% { transform: scale(1.1); } }
-.p2-snode.have { border-color: #27c46a; background: #1f9d55; color: #fff; }
-.p2-snode.miss { border-color: #ff5a4d; background: #d42b1e; color: #fff; }
-.p2-snode.home { border-color: rgba(255,178,46,.6); background: rgba(255,178,46,.1); color: #ffcf5c; }
-.p2-row { flex: 1; min-width: 0; background: rgba(255,255,255,.045); border: 1px solid rgba(255,255,255,.1); border-radius: 14px; padding: 9px 11px 11px; transition: background .3s, border-color .3s; }
-.p2-row.cur { border-color: rgba(255,178,46,.55); background: rgba(255,178,46,.05); }
-.p2-row .p2-top { display: flex; align-items: center; gap: 9px; }
-.p2-row .p2-ic { width: 28px; height: 28px; flex: 0 0 28px; border-radius: 9px; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255,255,255,.14); }
-.p2-row .p2-nm { flex: 1; font-size: 12.5px; line-height: 1.3; font-weight: 600; color: #fff; min-width: 0; }
-.p2-row .p2-nm small { display: block; color: #8ea3c0; font-size: 10.5px; font-weight: 400; }
-.p2-tg { display: flex; gap: 5px; }
-.p2-tg button { border: 1px solid rgba(255,255,255,.22); background: transparent; color: #c9d8ee; border-radius: 999px; padding: 8px 12px; font-size: 12px; cursor: pointer; font-family: inherit; transition: all .15s; }
-.p2-tg button.on-have { background: #1f9d55; border-color: #27c46a; color: #fff; font-weight: 700; }
-.p2-tg button.on-miss { background: #d42b1e; border-color: #ff5a4d; color: #fff; font-weight: 700; }
-.p2-itembar { height: 5px; border-radius: 99px; background: rgba(255,255,255,.08); margin-top: 8px; overflow: hidden; }
-.p2-itembar i { display: block; height: 100%; width: 0; border-radius: 99px; transition: width .35s; }
-.p2-row.have { border-color: rgba(39,196,106,.6); background: rgba(31,157,85,.14); }
-.p2-row.have .p2-itembar i { width: 100%; background: #2fe07c; }
-.p2-row.miss { border-color: rgba(255,90,77,.5); background: rgba(255,90,77,.07); }
-.p2-row.miss .p2-itembar i { width: 100%; background: #ff5a4d; }
-.p2-homerow { display: flex; gap: 10px; align-items: center; margin-top: 2px; position: relative; }
-.p2-homecard { flex: 1; background: rgba(255,178,46,.06); border: 1px solid rgba(255,178,46,.35); border-radius: 14px; padding: 10px 12px; }
-.p2-homecard b { font-size: 12.5px; color: #fff; }
-.p2-btnzone { margin-top: 16px; display: flex; flex-direction: column; align-items: center; gap: 6px; }
-.p2-ok { position: relative; overflow: hidden; width: 100%; padding: 14px 20px; border-radius: 999px; border: 1px solid rgba(255,255,255,.13); background: rgba(255,255,255,.05); color: #8ea3c0; font-size: 14px; font-weight: 800; letter-spacing: 1.2px; cursor: pointer; font-family: inherit; }
-.p2-ok .p2-fill { position: absolute; left: 0; top: 0; bottom: 0; width: 0; border-radius: 999px; background: linear-gradient(180deg, #5ed598 0%, #27b563 48%, #178049 100%); }
-.p2-ok .p2-lbl { position: relative; z-index: 2; display: flex; align-items: center; justify-content: center; gap: 8px; }
-.p2-ok.ready { background: linear-gradient(180deg, #ffe9a8 0%, #ffd23e 48%, #efa400 100%); border-color: rgba(255,233,168,.65); color: #231500; box-shadow: 0 12px 28px rgba(255,178,46,.3), inset 0 1px 0 rgba(255,255,255,.75), inset 0 -2px 4px rgba(146,90,0,.35); }
-.p2-ok.done { border-color: rgba(94,213,152,.65); color: #fff; box-shadow: 0 12px 28px rgba(31,157,85,.32); }
-.p2-ok.done .p2-fill { animation: p2fillup .8s ease forwards; }
-@keyframes p2fillup { from { width: 0; } to { width: 100%; } }
-.p2-ok.sending { opacity: .75; cursor: wait; }
-.p2-ok.shake { animation: p2shk .4s ease; }
-@keyframes p2shk { 0%,100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
-.p2-okhint { text-align: center; color: #ff9d8a; font-size: 11.5px; min-height: 14px; }
-.p2-sitelink { display: inline-flex; align-items: center; gap: 6px; margin-top: 6px; padding: 6px 10px; color: #ffcf5c; text-decoration: none; font-size: 12px; font-weight: 600; letter-spacing: 1.8px; border-bottom: 1px solid rgba(255,207,92,.35); transition: all .2s; }
-.p2-sitelink:hover { color: #ffe1a1; border-bottom-color: rgba(255,207,92,.8); }
-.p2-popcard { margin-top: 16px; background: linear-gradient(180deg, #10294d, #081527); border: 1.5px solid rgba(255,178,46,.55); border-radius: 22px; padding: 22px 18px 18px; text-align: center; box-shadow: 0 20px 46px rgba(0,0,0,.5); animation: p2popin .45s cubic-bezier(.2,1.4,.4,1); }
-@keyframes p2popin { 0% { transform: scale(.88) translateY(12px); opacity: 0; } 100% { transform: scale(1) translateY(0); opacity: 1; } }
-.p2-popcard .p2-trophy { width: 60px; height: 60px; margin: 0 auto 10px; border-radius: 50%; background: linear-gradient(180deg, #ffe9a8, #efa400); display: flex; align-items: center; justify-content: center; color: #231500; box-shadow: 0 10px 26px rgba(255,178,46,.4); animation: p2ring 1.6s infinite; }
-@keyframes p2ring { 0%,100% { transform: scale(1); } 50% { transform: scale(1.07); } }
-.p2-popcard .p2-stars { display: flex; justify-content: center; gap: 5px; color: #ffd23e; margin-bottom: 8px; }
-.p2-popcard > b { display: block; font-size: 18px; letter-spacing: 1.5px; color: #fff; }
-.p2-popcard p { font-size: 12.5px; color: #c9d8ee; line-height: 1.6; margin-top: 8px; }
-.p2-popcard p b { color: #ffcf5c; }
-.p2-popcard .p2-when { display: block; margin-top: 10px; font-size: 11px; color: #8ea3c0; letter-spacing: 1px; }
-.p2-popcard .p2-cont { margin-top: 15px; width: 100%; padding: 12px; border: none; border-radius: 999px; background: linear-gradient(180deg, #5ed598, #178049); color: #fff; font-size: 13px; font-weight: 800; letter-spacing: 1.2px; cursor: pointer; font-family: inherit; box-shadow: 0 10px 24px rgba(31,157,85,.35); }
-.p2-day2 { margin-top: 18px; background: rgba(255,255,255,.045); border: 1px solid rgba(255,255,255,.1); border-radius: 16px; padding: 16px; display: flex; gap: 12px; align-items: center; }
-.p2-day2 .p2-d2ic { flex: 0 0 44px; width: 44px; height: 44px; border-radius: 50%; background: rgba(10,22,44,.92); border: 1.5px solid rgba(255,255,255,.18); color: #7d93b5; display: flex; align-items: center; justify-content: center; }
-.p2-day2.open .p2-d2ic { background: linear-gradient(180deg, #ffd23e, #ff9d0a); border-color: transparent; color: #231500; }
-.p2-day2 b { display: block; font-size: 14px; color: #fff; }
-.p2-day2 span { font-size: 11.5px; color: #8ea3c0; }
-.p2-gifts { display: flex; gap: 8px; margin-top: 14px; }
-.p2-gift { flex: 1; background: rgba(255,255,255,.045); border: 1px solid rgba(255,178,46,.3); border-radius: 14px; padding: 11px; text-align: center; }
-.p2-gift.unlocked { border-color: rgba(47,224,124,.55); }
-.p2-gift .p2-gic { width: 27px; height: 27px; margin: 0 auto 5px; border-radius: 8px; background: rgba(255,178,46,.12); border: 1px solid rgba(255,178,46,.3); display: flex; align-items: center; justify-content: center; color: #ffcf5c; }
-.p2-gift b { display: block; font-size: 11.5px; color: #fff; font-weight: 600; }
-.p2-gift span { font-size: 10px; color: #8ea3c0; display: block; margin-top: 2px; }
-.p2-replay { display: block; margin: 12px auto 0; background: transparent; border: none; color: #8ea3c0; font-size: 11px; text-decoration: underline; cursor: pointer; font-family: inherit; }
+.pb-node.done { background: linear-gradient(180deg, #2bd06a, #1da34e); color: #fff; }
+.pb-node.future { background: #0d1830; border: 2px solid #2b3c5c; color: #7d93b5; }
+.pb-seg { flex: 1; height: 5px; border-radius: 99px; background: #22314e; margin: 0 7px; }
+.pb-seg.green { background: linear-gradient(90deg, #27c46a, #2fe07c); }
+.pb-bar-label {
+  text-align: center; margin-top: 11px;
+  font-size: 12px; letter-spacing: 3px; font-weight: 700; color: #8ea3c0;
+}
+.pb-bar-label b { color: #ffd23e; }
+
+/* --- title + subtitle --- */
+.pb-title {
+  font-family: 'Anton', Impact, sans-serif; text-transform: uppercase;
+  font-size: clamp(30px, 8vw, 42px); letter-spacing: 1px; line-height: 1.05;
+  color: #fff; margin: 22px 0 0; font-weight: 400; text-align: left;
+}
+.pb-title em {
+  font-style: normal;
+  background: linear-gradient(92deg, #ffd23e 5%, #ff9d0a 55%, #ff7a00 100%);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.pb-sub { color: #93a7c2; font-size: 15.5px; margin-top: 7px; line-height: 1.45; }
+
+/* --- guide bubble (FR avatar + question card) --- */
+.pb-guide-row { display: flex; gap: 12px; align-items: flex-start; margin-top: 20px; }
+.pb-guide-row.flash { animation: pbsflash 1s ease; }
+@keyframes pbsflash { 0%,100% { box-shadow: 0 0 0 0 rgba(255,178,46,0); } 30% { box-shadow: 0 0 0 4px rgba(255,178,46,.55); } }
+.pb-avatar {
+  flex: 0 0 54px; width: 54px; height: 54px; border-radius: 50%;
+  background: linear-gradient(180deg, #ffd23e, #ff9d0a);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Anton', Impact, sans-serif; font-size: 20px; color: #231500;
+  box-shadow: 0 0 0 2px rgba(255,210,62,.35), 0 6px 16px rgba(255,157,10,.3);
+}
+.pb-bubble {
+  flex: 1; min-width: 0;
+  background: linear-gradient(180deg, #0e1e3a, #0a1730);
+  border: 1px solid rgba(120,160,220,.28); border-radius: 18px;
+  padding: 14px 16px;
+}
+.pb-bubble p { font-size: 16.5px; line-height: 1.5; color: #fff; }
+.pb-bubble p b { color: #ffd23e; font-weight: 800; }
+.pb-bubble .pb-mission { margin-top: 9px; border: 1px dashed rgba(255,90,77,.6); background: rgba(255,90,77,.07); border-radius: 12px; padding: 8px 10px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.pb-bubble .pb-mission b { font-size: 10px; letter-spacing: 1.4px; color: #ff9d8a; }
+.pb-bubble .pb-mission .pb-mt { border: 1px solid rgba(255,90,77,.55); color: #ffb3a6; border-radius: 999px; padding: 3px 10px; font-size: 11px; font-family: 'Courier New', monospace; }
+
+/* --- item cards --- */
+.pb-list { margin-top: 18px; display: flex; flex-direction: column; gap: 10px; }
+.pb-card {
+  display: flex; gap: 12px; align-items: center;
+  background: rgba(255,255,255,.045); border: 1.5px solid rgba(255,255,255,.1);
+  border-radius: 16px; padding: 13px 14px;
+  transition: background .3s, border-color .3s; will-change: transform;
+}
+.pb-card.cur { border-color: rgba(255,178,46,.55); background: rgba(255,178,46,.05); }
+.pb-card.have { border-color: rgba(47,224,124,.55); background: rgba(31,157,85,.13); }
+.pb-card.na { border-color: rgba(255,180,30,.55); background: rgba(255,170,20,.09); }
+.pb-card.miss { border-color: rgba(255,90,77,.5); background: rgba(255,90,77,.07); }
+.pb-state {
+  flex: 0 0 36px; width: 36px; height: 36px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  border: 2px solid rgba(255,255,255,.25); color: #8ea3c0;
+  font-size: 13px; font-weight: 700;
+}
+.pb-card.cur .pb-state { border-color: #ffb02e; color: #ffcf5c; }
+.pb-card.have .pb-state { background: #22b45e; border-color: #22b45e; color: #fff; }
+.pb-card.na .pb-state { background: linear-gradient(180deg, #ffd23e, #ff9d0a); border-color: #ffb02e; color: #231500; }
+.pb-card.miss .pb-state { background: #d42b1e; border-color: #ff5a4d; color: #fff; }
+.pb-main { flex: 1; min-width: 0; }
+.pb-name { font-size: 16.5px; font-weight: 800; color: #fff; line-height: 1.25; }
+.pb-detail { font-size: 13px; color: #8ea3c0; margin-top: 2px; line-height: 1.4; }
+.pb-card.have .pb-detail { color: #8fe6b0; }
+.pb-card.na .pb-detail { color: #ffd98a; }
+.pb-card.miss .pb-detail { color: #ffb3a6; }
+.pb-tip { font-size: 11.5px; color: #ffcf5c; margin-top: 4px; line-height: 1.4; }
+.pb-choices { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.pb-choice {
+  border-radius: 999px; padding: 7px 13px; font-size: 11.5px; font-weight: 800;
+  letter-spacing: .8px; cursor: pointer; font-family: inherit; background: transparent;
+  border: 1.5px solid rgba(255,255,255,.28); color: #c9d8ee; transition: all .15s;
+}
+.pb-choice.c-have { border-color: rgba(47,224,124,.65); color: #4fe08a; }
+.pb-choice.c-miss { border-color: rgba(255,90,77,.55); color: #ffb3a6; }
+.pb-choice.c-na { border-color: rgba(255,180,30,.6); color: #ffcf5c; }
+.pb-pill {
+  flex: 0 0 auto; border: none; cursor: pointer; font-family: inherit;
+  border-radius: 999px; padding: 9px 16px; font-size: 12px; font-weight: 800;
+  letter-spacing: 1px;
+}
+.pb-pill.have { background: linear-gradient(180deg, #3ae374, #22b45e); color: #062b16; box-shadow: 0 6px 16px rgba(34,180,94,.3); }
+.pb-pill.na { background: linear-gradient(180deg, #ffe9a8, #ffb02e); color: #231500; box-shadow: 0 6px 16px rgba(255,178,46,.28); }
+.pb-pill.miss { background: linear-gradient(180deg, #ff6b5e, #d42b1e); color: #fff; box-shadow: 0 6px 16px rgba(212,43,30,.3); }
+
+/* --- STILL MISSING section --- */
+.pb-missing {
+  border: 1.5px dashed rgba(255,90,77,.55); background: rgba(255,90,77,.05);
+  border-radius: 18px; padding: 12px; margin-top: 16px;
+}
+.pb-missing-head { display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; padding: 2px 4px 10px; }
+.pb-missing-head b { font-size: 12px; letter-spacing: 2px; color: #ff9d8a; }
+.pb-missing-head .pb-mt2 { color: #ffb3a6; font-size: 11px; font-family: 'Courier New', monospace; border: 1px solid rgba(255,90,77,.5); border-radius: 999px; padding: 3px 10px; }
+.pb-missing .pb-list { margin-top: 0; }
+
+/* --- completion button + site link --- */
+.pb-btnzone { margin-top: 20px; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.pb-ok { position: relative; overflow: hidden; width: 100%; padding: 14px 20px; border-radius: 999px; border: 1px solid rgba(255,255,255,.13); background: rgba(255,255,255,.05); color: #8ea3c0; font-size: 14px; font-weight: 800; letter-spacing: 1.2px; cursor: pointer; font-family: inherit; }
+.pb-ok .pb-fill { position: absolute; left: 0; top: 0; bottom: 0; width: 0; border-radius: 999px; background: linear-gradient(180deg, #5ed598 0%, #27b563 48%, #178049 100%); }
+.pb-ok .pb-lbl { position: relative; z-index: 2; display: flex; align-items: center; justify-content: center; gap: 8px; }
+.pb-ok.ready { background: linear-gradient(180deg, #ffe9a8 0%, #ffd23e 48%, #efa400 100%); border-color: rgba(255,233,168,.65); color: #231500; box-shadow: 0 12px 28px rgba(255,178,46,.3), inset 0 1px 0 rgba(255,255,255,.75), inset 0 -2px 4px rgba(146,90,0,.35); }
+.pb-ok.done { border-color: rgba(94,213,152,.65); color: #fff; box-shadow: 0 12px 28px rgba(31,157,85,.32); }
+.pb-ok.done .pb-fill { animation: pbfillup .8s ease forwards; }
+@keyframes pbfillup { from { width: 0; } to { width: 100%; } }
+.pb-ok.sending { opacity: .75; cursor: wait; }
+.pb-ok.shake { animation: pbshk .4s ease; }
+@keyframes pbshk { 0%,100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
+.pb-okhint { text-align: center; color: #ff9d8a; font-size: 11.5px; min-height: 14px; }
+.pb-sitelink {
+  display: inline-flex; align-items: center; gap: 7px; margin-top: 4px;
+  padding: 9px 20px; border-radius: 999px; text-decoration: none;
+  border: 1.5px solid rgba(255,207,92,.45); color: #ffcf5c;
+  font-size: 12.5px; font-weight: 700; letter-spacing: 1.2px; transition: all .2s;
+}
+.pb-sitelink:hover { color: #ffe1a1; border-color: rgba(255,207,92,.85); }
+
+/* --- congratulations popup --- */
+.pb-popcard { margin-top: 16px; background: linear-gradient(180deg, #10294d, #081527); border: 1.5px solid rgba(255,178,46,.55); border-radius: 22px; padding: 22px 18px 18px; text-align: center; box-shadow: 0 20px 46px rgba(0,0,0,.5); animation: pbpopin .45s cubic-bezier(.2,1.4,.4,1); }
+@keyframes pbpopin { 0% { transform: scale(.88) translateY(12px); opacity: 0; } 100% { transform: scale(1) translateY(0); opacity: 1; } }
+.pb-popcard .pb-trophy { width: 60px; height: 60px; margin: 0 auto 10px; border-radius: 50%; background: linear-gradient(180deg, #ffe9a8, #efa400); display: flex; align-items: center; justify-content: center; color: #231500; box-shadow: 0 10px 26px rgba(255,178,46,.4); animation: pbring 1.6s infinite; }
+@keyframes pbring { 0%,100% { transform: scale(1); } 50% { transform: scale(1.07); } }
+.pb-popcard .pb-stars { display: flex; justify-content: center; gap: 5px; color: #ffd23e; margin-bottom: 8px; }
+.pb-popcard > b { display: block; font-size: 18px; letter-spacing: 1.5px; color: #fff; }
+.pb-popcard p { font-size: 12.5px; color: #c9d8ee; line-height: 1.6; margin-top: 8px; }
+.pb-popcard p b { color: #ffcf5c; }
+.pb-popcard .pb-when { display: block; margin-top: 10px; font-size: 11px; color: #8ea3c0; letter-spacing: 1px; }
+.pb-popcard .pb-cont { margin-top: 15px; width: 100%; padding: 12px; border: none; border-radius: 999px; background: linear-gradient(180deg, #5ed598, #178049); color: #fff; font-size: 13px; font-weight: 800; letter-spacing: 1.2px; cursor: pointer; font-family: inherit; box-shadow: 0 10px 24px rgba(31,157,85,.35); }
+
+/* --- Day 3 gifts end block --- */
+.pb-gifts-title { text-align: center; margin-top: 24px; font-size: 11.5px; letter-spacing: 2.5px; font-weight: 800; color: #ffcf5c; }
+.pb-gifts { display: flex; gap: 8px; margin-top: 10px; }
+.pb-gift { flex: 1; background: rgba(255,255,255,.045); border: 1px solid rgba(255,178,46,.3); border-radius: 14px; padding: 11px; text-align: center; }
+.pb-gift.unlocked { border-color: rgba(47,224,124,.55); }
+.pb-gift .pb-gic { width: 27px; height: 27px; margin: 0 auto 5px; border-radius: 8px; background: rgba(255,178,46,.12); border: 1px solid rgba(255,178,46,.3); display: flex; align-items: center; justify-content: center; color: #ffcf5c; }
+.pb-gift b { display: block; font-size: 11.5px; color: #fff; font-weight: 600; }
+.pb-gift span { font-size: 10px; color: #8ea3c0; display: block; margin-top: 2px; }
+.pb-replay { display: block; margin: 12px auto 0; background: transparent; border: none; color: #8ea3c0; font-size: 11px; text-decoration: underline; cursor: pointer; font-family: inherit; }
 </style>
 </head>
 <body>
 <header class="site-header">
   <span class="wordmark">FAMILY <em>READY</em> GUIDES</span>
 </header>
-<main class="p2main">
-  <div class="p2-panel">
-    <div class="p2-timer"><small>OPENS IN</small><b id="cd">--</b></div>
+<main class="pbmain">
+  <div class="pb-panel">
+    <div class="pb-timer"><small>GIFTS + LAUNCH PRICES OPEN IN</small><b id="cd">--</b></div>
     <div id="stage"></div>
     <div id="rest" hidden>
-      <div class="p2-jstrip" id="jstrip">
-        <div class="p2-jday" id="jd1"><div class="p2-jnode open" id="jn1"><span>1</span></div><div class="p2-jcap"><b>Day 1</b><span>Nov 15</span></div></div>
-        <div class="p2-jday"><div class="p2-jnode lock" id="jn2"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></div><div class="p2-jcap"><b>Day 2</b><span>Nov 16</span></div></div>
-        <div class="p2-jday"><div class="p2-jnode gift"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4" y="10" width="16" height="10" rx="1.5"/><path d="M12 10v10M4 14.5h16M12 10a2.8 2.8 0 1 1 2.8-2.8c0 1.6-2.8 2.8-2.8 2.8zm0 0a2.8 2.8 0 1 0-2.8-2.8C9.2 8.8 12 10 12 10z"/></svg></div><div class="p2-jcap"><b>Day 3</b><span>Nov 17</span></div></div>
+      <div class="pb-bar" id="bar">
+        <div class="pb-node cur" id="node1">1</div>
+        <div class="pb-seg" id="seg1"></div>
+        <div class="pb-node future">2</div>
+        <div class="pb-seg"></div>
+        <div class="pb-node future">3</div>
       </div>
-      <h2 class="p2-h2">Day 1 — The Kit</h2>
-      <p class="p2-trust"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3l7 2.5V11c0 4.6-3 7.7-7 9.5C8 18.7 5 15.6 5 11V5.5z"/><path d="M9 11.5l2.2 2.2L15.5 9"/></svg><span>Based on FEMA &amp; Red Cross guidance.</span></p>
-      <div class="p2-story" id="story">
-        <div class="p2-guide"><svg width="26" height="26" viewBox="0 0 24 24"><circle cx="12" cy="7.6" r="3.6" fill="#231500"/><path d="M8.4 7.6a3.6 3.6 0 0 1 7.2 0l.5-2.8a4.6 3.2 0 0 0-8.2 0z" fill="#231500"/><path d="M5 20.5c.8-3.6 3.6-5.4 7-5.4s6.2 1.8 7 5.4z" fill="#231500"/></svg></div>
-        <div class="p2-bubble" id="bubble"></div>
+      <div class="pb-bar-label">DAY 1 OF 3</div>
+      <h1 class="pb-title">DAY 1 — <em>THE KIT</em></h1>
+      <p class="pb-sub">Based on FEMA &amp; Red Cross guidance.</p>
+      <div class="pb-guide-row" id="story">
+        <div class="pb-avatar">FR</div>
+        <div class="pb-bubble" id="bubble"></div>
       </div>
-      <div class="p2-comp">
-        <div class="p2-lbl"><b id="pct">0%</b></div>
-        <div class="p2-track"><i id="compfill"></i></div>
+      <div id="lists">
+        <div class="pb-list" id="rows"></div>
+        <div id="missing"></div>
       </div>
-      <div id="missing"></div>
-      <div class="p2-trail">
-        <div class="p2-rail"></div><div class="p2-railfill" id="railfill"></div>
-        <div id="rows"></div>
-        <div class="p2-homerow">
-          <div class="p2-snode home"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 11l8-6 8 6M6 9.5V20h12V9.5"/></svg></div>
-          <div class="p2-homecard"><b>Home &amp; protected</b></div>
-        </div>
-      </div>
-      <div class="p2-btnzone">
-        <button class="p2-ok" id="okbtn" type="button">OK</button>
-        <p class="p2-okhint" id="okhint"></p>
-        <a class="p2-sitelink" href="https://family-ready.whop.site/" target="_blank" rel="noopener">ENTER THE SITE <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 12h15M13 5l7 7-7 7"/></svg></a>
+      <div class="pb-btnzone">
+        <button class="pb-ok" id="okbtn" type="button">COMPLETED</button>
+        <p class="pb-okhint" id="okhint"></p>
+        <a class="pb-sitelink" href="https://family-ready.whop.site/" target="_blank" rel="noopener">Visit our site <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 12h15M13 5l7 7-7 7"/></svg></a>
       </div>
       <div id="pop"></div>
-      <div class="p2-day2" id="day2card"></div>
-      <div class="p2-gifts">
-        <div class="p2-gift" id="gift1"><div class="p2-gic"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h4"/></svg></div><b>ReadyStock Calculator</b><span data-gift-line>Day 3 · Unlocks Nov 17, 9:00 AM</span></div>
-        <div class="p2-gift" id="gift2"><div class="p2-gic"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="9" r="5"/><path d="M9 13l-2 8 5-3 5 3-2-8"/></svg></div><b>Certificate</b><span data-gift-line>Day 3 · Unlocks Nov 17, 9:00 AM</span></div>
+      <div class="pb-gifts-title">ON DAY 3, YOU WILL RECEIVE</div>
+      <div class="pb-gifts">
+        <div class="pb-gift" id="gift1"><div class="pb-gic"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h4"/></svg></div><b>ReadyStock Calculator</b><span data-gift-line>Complete Day 3 to unlock · Nov 17, 9:00 AM</span></div>
+        <div class="pb-gift" id="gift2"><div class="pb-gic"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="9" r="5"/><path d="M9 13l-2 8 5-3 5 3-2-8"/></svg></div><b>Completion Certificate</b><span data-gift-line>Complete Day 3 to unlock · Nov 17, 9:00 AM</span></div>
       </div>
-      <button class="p2-replay" id="replay" type="button" hidden>Watch the video again</button>
+      <button class="pb-replay" id="replay" type="button" hidden>Watch the video again</button>
     </div>
   </div>
 </main>
@@ -284,20 +318,20 @@ main.p2main { width: min(620px, 100%); }
   'use strict';
 
   /* ============================================================
-     OPENING VIDEO: paste the hosted welcome-video URL here when
+     OPENING VIDEO: paste the hosted Day 1 video URL here when
      the video is produced (e.g. the Cloudflare R2 file URL).
      Empty = the page shows the styled slot with a CONTINUE
      button, so no visitor is ever trapped.
      ============================================================ */
   var OPENING_VIDEO_URL = '';
 
+  var DAY_NUM = 1;
   var CHECKS_URL = 'https://hook.us2.make.com/mzjvi8tazzmx435v3n08vb7n1h47b6om';
   var EKEY = 'fr-challenge-email';
   var MKEY = 'fr-p2-marks';
   var DKEY = 'fr-p2-done';
   var VKEY = 'fr-p2-vid';
   var TARGET = new Date('2026-11-17T09:00:00-05:00').getTime();
-  var DAY2_AT = new Date('2026-11-16T00:00:00-05:00').getTime();
 
   function $(id) { return document.getElementById(id); }
   function storeGet(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
@@ -306,9 +340,10 @@ main.p2main { width: min(620px, 100%); }
   /* Visitor email — obtained exactly as the previous page did:
      ?email= in the URL wins and is saved; otherwise the email the
      capture page stored under 'fr-challenge-email'. */
+  var params = new URLSearchParams(window.location.search);
   var email = '';
   try {
-    var fromUrl = new URLSearchParams(window.location.search).get('email');
+    var fromUrl = params.get('email');
     if (fromUrl) { email = fromUrl.trim(); storeSet(EKEY, email); }
     else { email = storeGet(EKEY) || ''; }
   } catch (e) { email = ''; }
@@ -371,31 +406,30 @@ main.p2main { width: min(620px, 100%); }
     var left = nextNineET() - Date.now();
     var mt = $('mtimer'); if (mt) mt.textContent = fmtHMS(left);
     var mt2 = $('mtimer2'); if (mt2) mt2.textContent = fmtHMS(left) + ' LEFT';
-    var vp = document.querySelector('.p2-vp');
+    var vp = document.querySelector('.pb-vp');
     var vid = $('openvid');
     if (vp && vid && vid.duration) vp.style.width = Math.min(100, Math.round(vid.currentTime / vid.duration * 100)) + '%';
+    renderGifts();
   }
 
-  /* ---------- Day 1 data (approved copy) ---------- */
-  function ic(p) { return '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="' + p + '"/></svg>'; }
+  /* ---------- Day 1 data (approved copy) ----------
+     [name, detail, notForUsAllowed, guideLead, guideQuestion, tip] */
   var items = [
-    ['Water', '1 gal / person / day · 3 days', 'rgba(28,176,246,.16)', '#4fc3ff', 'M12 3c3.5 4.2 6 7.3 6 10a6 6 0 1 1-12 0c0-2.7 2.5-5.8 6-10z', 'Water first. 1 gallon per person, per day — 3 days stored. Do you have it?'],
-    ['Food', '3 days · non-perishable', 'rgba(255,140,0,.15)', '#ffa53c', 'M4 10h16M6 10c0 5 2.5 8 6 8s6-3 6-8M12 2v4', 'Food for 3 days — nothing that needs a fridge. Do you have it?'],
-    ['Flashlight', '+ extra batteries', 'rgba(255,210,62,.15)', '#ffd23e', 'M9 2h6l1 7-2 3v10H10V12L8 9z', 'The power goes out. A flashlight + extra batteries. Do you have it?'],
-    ['Radio', 'Battery or hand-crank', 'rgba(167,139,250,.16)', '#b79cff', 'M4 11h16v9H4zM4 11l11-7M18 8a4 4 0 0 1 0 6', 'No internet, no TV. A battery or hand-crank radio. Do you have it?'],
-    ['First aid kit', 'Bandages & basics', 'rgba(255,90,77,.15)', '#ff8a7a', 'M12 4v16M4 12h16M5 3h14v18H5z', 'A first aid kit at home. Do you have it?'],
-    ['Medications', '7-day supply', 'rgba(45,212,191,.15)', '#4fe3c1', 'M10 3h4v7h7v4h-7v7H3v-4h7z', '7 days of your family’s medications. Do you have it?'],
-    ['Power bank', 'Keeps your phone alive', 'rgba(56,189,248,.15)', '#5ec8f8', 'M13 2L4 14h6l-1 8 9-12h-6z', 'A power bank keeps your phone alive. Do you have it?'],
-    ['Cash', 'Small bills', 'rgba(47,224,124,.14)', '#4fe08a', 'M3 7h18v10H3zM12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z', 'Cards die without power. Small bills at home. Do you have it?'],
-    ['Documents', 'Copies · waterproof bag', 'rgba(148,184,226,.15)', '#a9c6ea', 'M7 3h7l4 4v14H7zM14 3v4h4', 'Copies of your documents, in a waterproof bag. Do you have it?'],
-    ['Can opener', 'Manual', 'rgba(203,213,225,.14)', '#cbd5e1', 'M6 3a3 3 0 1 0 3 3M6 6v15M18 3v6M15 6h6', 'Cans are useless if you can’t open them. A manual opener. Do you have it?'],
-    ['Whistle', 'Signal for help', 'rgba(244,114,182,.14)', '#f78fc0', 'M4 13a8 5 0 1 0 16 0 8 5 0 1 0-16 0M4 13h7a2 2 0 1 0 0 .1', 'A whistle signals for help. Do you have it?'],
-    ['Contact plan', 'On paper', 'rgba(129,140,248,.16)', '#9aa5ff', 'M12 21s-7-4.6-7-10a7 7 0 0 1 14 0c0 5.4-7 10-7 10zM12 13a2 2 0 1 0 0-4 2 2 0 0 0 0 4z', 'If phones fail, everyone knows the plan — on paper. Do you have it?']
+    ['Water', '1 gallon per person', false, 'Water first', '1 gallon per person, per day — 3 days stored. Do you have it?', ''],
+    ['Food', '3 days, no cooking', false, 'Food', 'for 3 days — nothing that needs a fridge. Do you have it?', ''],
+    ['Flashlights', 'One per person', false, 'Flashlights', 'one for each person — can everyone see in the dark?', ''],
+    ['Radio', 'Battery or hand-crank', false, 'Radio', 'battery or hand-crank — your news when there is no internet and no TV. Do you have it?', ''],
+    ['Batteries', 'Spares for your gear', false, 'Batteries', 'spares for your flashlights and radio — do you have them?', ''],
+    ['First aid kit', 'Bandages & basics', false, 'First aid kit', 'at home, with bandages and the basics. Do you have it?', ''],
+    ['Medications', '7-day supply', true, 'Medications', 'a 7-day supply of the meds your family already takes. Do you have it? If nobody takes any, tap NOT FOR US.', ''],
+    ['Phone charging', 'Power bank', false, 'Phone charging', 'a power bank keeps your phone alive. Do you have it?', ''],
+    ['Cash', 'Small bills', false, 'Cash', 'small bills at home — cards die without power. Do you have it?', ''],
+    ['Important documents', 'Copies', false, 'Important documents', 'copies of your documents, in a waterproof bag. Do you have them?', ''],
+    ['Warm clothes & blankets', 'For a cold night', false, 'Warm clothes & blankets', 'enough for a cold night with no heat. Do you have them?', ''],
+    ['Contact plan', 'Out-of-area person', false, 'Contact plan', 'one out-of-area person everyone calls if phones fail. Is it set?', '']
   ];
-  var FAM = '<svg width="17" height="17" viewBox="0 0 24 24"><circle cx="7" cy="6.5" r="3" fill="#ffd23e"/><rect x="4" y="10" width="6" height="8.5" rx="2.5" fill="#ffd23e"/><circle cx="16.8" cy="7.6" r="2.6" fill="#ffb02e"/><rect x="14.2" y="10.6" width="5.4" height="7.4" rx="2.3" fill="#ffb02e"/><circle cx="11.9" cy="10.8" r="2" fill="#2fe07c"/><rect x="10.2" y="13" width="3.6" height="5.6" rx="1.6" fill="#2fe07c"/></svg>';
-  var CHK = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M4 12.5l5 5L20 6.5"/></svg>';
-  var CRS = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M5 5l14 14M19 5L5 19"/></svg>';
-  var LOCK = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>';
+  var CHK = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"><path d="M4 12.5l5 5L20 6.5"/></svg>';
+  var CRS = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"><path d="M5 5l14 14M19 5L5 19"/></svg>';
   function star() { return '<svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.6 6.2L21 9l-5 4.2 1.6 6.8L12 16.6 6.4 20 8 13.2 3 9l6.4-.8z"/></svg>'; }
 
   /* ---------- state ---------- */
@@ -403,19 +437,33 @@ main.p2main { width: min(620px, 100%); }
   try { marks = JSON.parse(storeGet(MKEY) || '{}') || {}; } catch (e) { marks = {}; }
   var done = storeGet(DKEY) === '1';
   var vidSeen = storeGet(VKEY) === 'done';
-  var lastMiss = -1;
   var popOpen = false;
   var sending = false;
   var hintMsg = '';
+  var editingIdx = -1;
   var stageMode = 'done'; // 'video' | 'slot' | 'done'
-  var rows = $('rows');
 
-  function saveMarks() { storeSet(MKEY, JSON.stringify(marks)); }
+  /* Screenshot/preview seed: ?preview=d1 renders a mid-progress state
+     in memory only — nothing is saved and nothing is sent. Without the
+     param, this block does nothing at all. */
+  var PREVIEW = params.get('preview');
+  if (PREVIEW === 'd1') {
+    marks = { 0: 'have', 1: 'have', 6: 'na', 8: 'miss' };
+    vidSeen = true;
+  }
+
+  function saveMarks() { if (PREVIEW) return; storeSet(MKEY, JSON.stringify(marks)); }
   function curIdx() { for (var i = 0; i < items.length; i++) { if (!marks[i]) return i; } return -1; }
   function markedCount() { return Object.keys(marks).length; }
-  function dispOrder() {
-    var g = function (i) { var m = marks[i]; return m === 'have' ? 0 : (m === 'miss' ? 2 : 1); };
-    return items.map(function (_, i) { return i; }).sort(function (a, b) { return g(a) - g(b) || a - b; });
+  function groupOf(i) { var m = marks[i]; return (m === 'have' || m === 'na') ? 0 : (m === 'miss' ? 2 : 1); }
+  function mainOrder() {
+    return items.map(function (_, i) { return i; })
+      .filter(function (i) { return marks[i] !== 'miss'; })
+      .sort(function (a, b) { return groupOf(a) - groupOf(b) || a - b; });
+  }
+  function missOrder() {
+    return items.map(function (_, i) { return i; })
+      .filter(function (i) { return marks[i] === 'miss'; });
   }
 
   /* ---------- opening video / slot ---------- */
@@ -431,25 +479,25 @@ main.p2main { width: min(620px, 100%); }
   }
   function renderStage() {
     if (stageMode === 'done') {
-      stage.innerHTML = '<div class="p2-vstage"><b>WELCOME VIDEO</b><span class="p2-dim">16:9 · 1920 × 1080</span></div>';
+      stage.innerHTML = '<div class="pb-vstage"><b>WELCOME VIDEO</b><span class="pb-dim">16:9 · 1920 × 1080</span></div>';
       return;
     }
     if (stageMode === 'slot') {
-      stage.innerHTML = '<div class="p2-vstage"><b>WELCOME VIDEO</b>' +
-        '<button class="p2-continue" id="slot-continue" type="button">CONTINUE</button>' +
-        '<span class="p2-dim">16:9 · 1920 × 1080</span></div>' +
-        '<p class="p2-wait">Your journey appears when you continue.</p>';
+      stage.innerHTML = '<div class="pb-vstage"><b>WELCOME VIDEO</b>' +
+        '<button class="pb-continue" id="slot-continue" type="button">CONTINUE</button>' +
+        '<span class="pb-dim">16:9 · 1920 × 1080</span></div>' +
+        '<p class="pb-wait">Your journey appears when you continue.</p>';
       $('slot-continue').onclick = reveal;
       return;
     }
     // stageMode === 'video'
-    stage.innerHTML = '<div class="p2-vstage">' +
+    stage.innerHTML = '<div class="pb-vstage">' +
       '<video id="openvid" autoplay muted playsinline preload="auto" src="' + OPENING_VIDEO_URL + '"></video>' +
-      '<span class="p2-live"><i></i>PLAYING</span>' +
-      '<button class="p2-snd" id="sndbtn" type="button">TAP FOR SOUND</button>' +
-      '<button class="p2-snd" id="playbtn" type="button" hidden>TAP TO PLAY</button>' +
-      '<div class="p2-vp"></div><span class="p2-dim">16:9 · 1920 × 1080</span></div>' +
-      '<button class="p2-skip" id="skipvid" type="button">Skip intro</button>';
+      '<span class="pb-live"><i></i>PLAYING</span>' +
+      '<button class="pb-snd" id="sndbtn" type="button">TAP FOR SOUND</button>' +
+      '<button class="pb-snd" id="playbtn" type="button" hidden>TAP TO PLAY</button>' +
+      '<div class="pb-vp"></div><span class="pb-dim">16:9 · 1920 × 1080</span></div>' +
+      '<button class="pb-skip" id="skipvid" type="button">Skip intro</button>';
     var vid = $('openvid');
     var snd = $('sndbtn');
     var playBtn = $('playbtn');
@@ -463,122 +511,130 @@ main.p2main { width: min(620px, 100%); }
     if (pr && pr.catch) pr.catch(function () { playBtn.hidden = false; snd.hidden = true; });
   }
 
-  /* ---------- date-driven blocks (Day 2 + gifts) ---------- */
-  function renderDates() {
-    var now = Date.now();
-    var d2 = $('day2card');
-    if (now >= DAY2_AT) {
-      d2.className = 'p2-day2 open';
-      d2.innerHTML = '<div class="p2-d2ic"><span style="font-size:17px;font-weight:700">2</span></div>' +
-        '<div><b>Day 2</b><span>Your Day 2 journey opens here.</span></div>';
-      var jn2 = $('jn2');
-      if (jn2 && jn2.className.indexOf('gift') === -1 && !done) { jn2.className = 'p2-jnode open'; jn2.innerHTML = '<span>2</span>'; }
-    } else {
-      d2.className = 'p2-day2';
-      d2.innerHTML = '<div class="p2-d2ic">' + LOCK + '</div>' +
-        '<div><b>Day 2</b><span>Opens Monday, November 16</span></div>';
-    }
-    if (now >= TARGET) {
-      ['gift1', 'gift2'].forEach(function (id) {
-        var g = $(id);
-        if (g) {
-          g.classList.add('unlocked');
-          var line = g.querySelector('[data-gift-line]');
-          if (line) line.textContent = 'Day 3 · Unlocked — delivered by email';
-        }
-      });
-    }
+  /* ---------- gifts unlock state (Day 3, Nov 17 9:00 AM ET) ---------- */
+  function renderGifts() {
+    if (Date.now() < TARGET) return;
+    ['gift1', 'gift2'].forEach(function (id) {
+      var g = $(id);
+      if (g) {
+        g.classList.add('unlocked');
+        var line = g.querySelector('[data-gift-line]');
+        if (line) line.textContent = 'Unlocked — delivered by email on Day 3';
+      }
+    });
   }
 
-  /* ---------- main render (Day 1 journey) ---------- */
+  /* ---------- card builder ---------- */
+  function buildCard(i, cur) {
+    var it = items[i];
+    var m = marks[i] || '';
+    var card = document.createElement('div');
+    card.className = 'pb-card ' + m + ((i === cur && !done) ? ' cur' : '');
+    card.setAttribute('data-i', i);
+    var st = document.createElement('div');
+    st.className = 'pb-state';
+    if (m === 'have') st.innerHTML = CHK;
+    else if (m === 'na' || m === 'miss') st.innerHTML = CRS;
+    else st.textContent = (i + 1);
+    var main = document.createElement('div');
+    main.className = 'pb-main';
+    var nm = document.createElement('div');
+    nm.className = 'pb-name'; nm.textContent = it[0];
+    var dt = document.createElement('div');
+    dt.className = 'pb-detail'; dt.textContent = it[1];
+    main.appendChild(nm); main.appendChild(dt);
+    if (it[5]) {
+      var tip = document.createElement('div');
+      tip.className = 'pb-tip'; tip.textContent = it[5];
+      main.appendChild(tip);
+    }
+    card.appendChild(st); card.appendChild(main);
+    if (m && editingIdx !== i) {
+      var pill = document.createElement('button');
+      pill.type = 'button';
+      pill.className = 'pb-pill ' + m;
+      pill.textContent = (m === 'have') ? 'I HAVE IT' : (m === 'na') ? 'NOT FOR US' : "I DON'T";
+      pill.title = 'Tap to change';
+      pill.onclick = function () { editingIdx = i; render(false); };
+      card.appendChild(pill);
+    } else {
+      var ch = document.createElement('div');
+      ch.className = 'pb-choices';
+      var bh = document.createElement('button');
+      bh.type = 'button'; bh.className = 'pb-choice c-have'; bh.textContent = 'I HAVE IT';
+      bh.onclick = function () { answer(i, 'have'); };
+      var bm = document.createElement('button');
+      bm.type = 'button'; bm.className = 'pb-choice c-miss'; bm.textContent = "I DON'T";
+      bm.onclick = function () { answer(i, 'miss'); };
+      ch.appendChild(bh); ch.appendChild(bm);
+      if (it[2]) {
+        var bn = document.createElement('button');
+        bn.type = 'button'; bn.className = 'pb-choice c-na'; bn.textContent = 'NOT FOR US';
+        bn.onclick = function () { answer(i, 'na'); };
+        ch.appendChild(bn);
+      }
+      main.appendChild(ch);
+    }
+    return card;
+  }
+
+  /* ---------- main render ---------- */
   function render(anim) {
+    var lists = $('lists');
     var oldTops = null;
     if (anim) {
       oldTops = {};
-      var olds = rows.querySelectorAll('.p2-srow');
+      var olds = lists.querySelectorAll('.pb-card');
       for (var o = 0; o < olds.length; o++) oldTops[olds[o].getAttribute('data-i')] = olds[o].getBoundingClientRect().top;
     }
     var cur = curIdx();
-    var miss = 0, marked = 0, missNames = [];
-    Object.keys(marks).forEach(function (k) {
-      marked++;
-      if (marks[k] === 'miss') { miss++; missNames.push(items[k][0]); }
-    });
+    var marked = markedCount();
+
+    /* guide bubble: question of the next unanswered item */
     var bb = $('bubble');
     if (done) {
-      bb.innerHTML = '<div class="p2-who">YOUR GUIDE</div><p>Day 1 complete. Day 2 opens Monday, Nov 16.</p>';
+      bb.innerHTML = '<p>Day 1 complete. Day 2 opens Monday, Nov 16.</p>';
     } else if (cur === -1) {
-      bb.innerHTML = '<div class="p2-who">YOUR GUIDE</div><p>Trail complete. Press OK to finish Day 1.</p>';
+      bb.innerHTML = '<p>All 12 stops checked. Press COMPLETED to finish Day 1.</p>';
     } else {
-      var html = '<div class="p2-who">STOP ' + (cur + 1) + ' OF 12</div><p>' + items[cur][5] + '</p>' +
-        '<div class="p2-sbtns"><button type="button" class="p2-yes" id="sYes">Yes</button>' +
-        '<button type="button" class="p2-no" id="sNo">Not yet</button></div>';
-      if (lastMiss === cur) {
-        html += '<div class="p2-mission"><b>MISSION — GET IT BY TOMORROW</b><span class="p2-mt" id="mtimer"></span></div>';
-      }
-      bb.innerHTML = html;
-      $('sYes').onclick = function () { answer(cur, 'have'); };
-      $('sNo').onclick = function () { answer(cur, 'miss'); };
+      bb.innerHTML = '<p><b>' + items[cur][3] + '</b> — ' + items[cur][4] + '</p>';
     }
-    var jn1 = $('jn1'), jd1 = $('jd1'), jn2 = $('jn2');
-    $('jstrip').classList.toggle('d1done', done);
+
+    /* top bar: own-day node turns green once the day is completed */
+    var node1 = $('node1');
     if (done) {
-      jn1.className = 'p2-jnode done'; jn1.innerHTML = CHK;
-      jn2.className = 'p2-jnode gift'; jn2.innerHTML = '<span>2</span>';
+      node1.className = 'pb-node done'; node1.innerHTML = CHK;
+      $('seg1').className = 'pb-seg green';
     } else {
-      jn1.className = 'p2-jnode open'; jn1.innerHTML = '<span>1</span>';
+      node1.className = 'pb-node cur'; node1.textContent = '1';
+      $('seg1').className = 'pb-seg';
     }
-    var pct = Math.round(marked / items.length * 100);
-    $('pct').textContent = pct + '%';
-    $('compfill').style.width = pct + '%';
-    var mb = $('missing');
-    if (miss > 0) {
-      var chips = '';
-      missNames.forEach(function (n) { chips += '<span class="p2-chip">' + n + '</span>'; });
-      mb.innerHTML = '<div class="p2-missing"><div class="p2-mh"><b>STILL MISSING</b>' +
-        '<span class="p2-mt2" id="mtimer2"></span></div><div class="p2-chips">' + chips + '</div></div>';
-    } else { mb.innerHTML = ''; }
+
+    /* main list (have/na float up, unanswered in order) */
+    var rows = $('rows');
     rows.innerHTML = '';
-    dispOrder().forEach(function (i) {
-      var it = items[i];
-      var m = marks[i] || '';
-      var sr = document.createElement('div'); sr.className = 'p2-srow'; sr.setAttribute('data-i', i);
-      var sn = document.createElement('div');
-      if (m === 'have') { sn.className = 'p2-snode have'; sn.innerHTML = CHK; }
-      else if (m === 'miss') { sn.className = 'p2-snode miss'; sn.innerHTML = CRS; }
-      else if (i === cur && !done) { sn.className = 'p2-snode cur'; sn.innerHTML = FAM; }
-      else { sn.className = 'p2-snode'; sn.textContent = (i + 1); }
-      var d = document.createElement('div');
-      d.className = 'p2-row ' + m + ((i === cur && !done) ? ' cur' : '');
-      var top = document.createElement('div'); top.className = 'p2-top';
-      var icn = document.createElement('div'); icn.className = 'p2-ic';
-      icn.style.background = it[2]; icn.style.color = it[3]; icn.innerHTML = ic(it[4]);
-      var nm = document.createElement('div'); nm.className = 'p2-nm';
-      nm.innerHTML = it[0] + '<small>' + it[1] + '</small>';
-      var tg = document.createElement('div'); tg.className = 'p2-tg';
-      var b1 = document.createElement('button'); b1.type = 'button'; b1.textContent = 'I have it';
-      if (m === 'have') b1.className = 'on-have';
-      var b2 = document.createElement('button'); b2.type = 'button'; b2.textContent = "I don't";
-      if (m === 'miss') b2.className = 'on-miss';
-      b1.onclick = function () { answer(i, 'have'); };
-      b2.onclick = function () { answer(i, 'miss'); };
-      tg.appendChild(b1); tg.appendChild(b2);
-      top.appendChild(icn); top.appendChild(nm); top.appendChild(tg);
-      var bar = document.createElement('div'); bar.className = 'p2-itembar'; bar.innerHTML = '<i></i>';
-      d.appendChild(top); d.appendChild(bar);
-      sr.appendChild(sn); sr.appendChild(d);
-      rows.appendChild(sr);
-    });
-    var rf = $('railfill');
-    if (rf) {
-      var srs = rows.querySelectorAll('.p2-srow'), lastHave = null;
-      for (var q = 0; q < srs.length; q++) {
-        if (marks[srs[q].getAttribute('data-i')] === 'have') lastHave = srs[q];
-      }
-      rf.style.height = lastHave ? (lastHave.offsetTop + lastHave.offsetHeight - 14) + 'px' : '0px';
-    }
+    mainOrder().forEach(function (i) { rows.appendChild(buildCard(i, cur)); });
+
+    /* STILL MISSING section at the bottom */
+    var miss = missOrder();
+    var mb = $('missing');
+    if (miss.length > 0) {
+      mb.innerHTML = '';
+      var sec = document.createElement('div');
+      sec.className = 'pb-missing';
+      var head = document.createElement('div');
+      head.className = 'pb-missing-head';
+      head.innerHTML = '<b>STILL MISSING</b><span class="pb-mt2" id="mtimer2"></span>';
+      var list = document.createElement('div');
+      list.className = 'pb-list';
+      miss.forEach(function (i) { list.appendChild(buildCard(i, cur)); });
+      sec.appendChild(head); sec.appendChild(list);
+      mb.appendChild(sec);
+    } else { mb.innerHTML = ''; }
+
+    /* FLIP: glide cards from their old positions to the new ones */
     if (oldTops) {
-      var news = rows.querySelectorAll('.p2-srow'), moves = [];
+      var news = lists.querySelectorAll('.pb-card'), moves = [];
       for (var n = 0; n < news.length; n++) {
         var idx = news[n].getAttribute('data-i');
         if (oldTops[idx] !== undefined) {
@@ -593,27 +649,31 @@ main.p2main { width: min(620px, 100%); }
         });
       });
     }
+
+    /* completion button */
     var ok = $('okbtn');
     if (done) {
-      ok.className = 'p2-ok done';
-      ok.innerHTML = '<span class="p2-fill"></span><span class="p2-lbl">' + CHK + ' COMPLETED</span>';
+      ok.className = 'pb-ok done';
+      ok.innerHTML = '<span class="pb-fill"></span><span class="pb-lbl">' + CHK + ' COMPLETED</span>';
     } else if (marked >= items.length) {
-      ok.className = 'p2-ok ready' + (sending ? ' sending' : '');
-      ok.innerHTML = '<span class="p2-lbl">OK — I FINISHED DAY 1</span>';
+      ok.className = 'pb-ok ready' + (sending ? ' sending' : '');
+      ok.innerHTML = '<span class="pb-lbl">COMPLETED</span>';
     } else {
-      ok.className = 'p2-ok';
-      ok.innerHTML = '<span class="p2-lbl">OK — ' + marked + ' OF 12</span>';
+      ok.className = 'pb-ok';
+      ok.innerHTML = '<span class="pb-lbl">COMPLETED — ' + marked + ' OF 12</span>';
     }
     $('okhint').textContent = hintMsg;
+
+    /* congratulations popup */
     var pop = $('pop');
     if (popOpen && done) {
-      pop.innerHTML = '<div class="p2-popcard" id="popcard">' +
-        '<div class="p2-trophy"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4h10v5a5 5 0 0 1-10 0zM7 5H4a3 3 0 0 0 3 4M17 5h3a3 3 0 0 1-3 4M12 14v3M8 20h8M12 17l-1.5 3h3z"/></svg></div>' +
-        '<div class="p2-stars">' + star() + star() + star() + '</div>' +
+      pop.innerHTML = '<div class="pb-popcard" id="popcard">' +
+        '<div class="pb-trophy"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4h10v5a5 5 0 0 1-10 0zM7 5H4a3 3 0 0 0 3 4M17 5h3a3 3 0 0 1-3 4M12 14v3M8 20h8M12 17l-1.5 3h3z"/></svg></div>' +
+        '<div class="pb-stars">' + star() + star() + star() + '</div>' +
         '<b>CONGRATULATIONS!</b>' +
         '<p>You just completed <b>Day 1</b> — and that is a real victory. Tonight, your family is safer than it was this morning.</p>' +
-        '<span class="p2-when">DAY 2 OPENS MONDAY, NOVEMBER 16</span>' +
-        '<button class="p2-cont" id="popClose" type="button">CONTINUE</button></div>';
+        '<span class="pb-when">DAY 2 OPENS MONDAY, NOVEMBER 16</span>' +
+        '<button class="pb-cont" id="popClose" type="button">CONTINUE</button></div>';
       $('popClose').onclick = function () { popOpen = false; render(false); };
       setTimeout(function () {
         var pc = $('popcard');
@@ -626,14 +686,12 @@ main.p2main { width: min(620px, 100%); }
   function answer(i, v) {
     hintMsg = '';
     marks[i] = v;
-    lastMiss = (v === 'miss') ? i : -1;
+    editingIdx = -1;
     saveMarks();
     render(true);
-    var el = $('pct');
-    if (el) { el.classList.remove('p2-pop'); void el.offsetWidth; el.classList.add('p2-pop'); }
   }
 
-  /* ---------- OK button: the completion moment ---------- */
+  /* ---------- Completed button: the registration moment ---------- */
   $('okbtn').onclick = function () {
     var ok = $('okbtn');
     if (sending) return;
@@ -654,12 +712,16 @@ main.p2main { width: min(620px, 100%); }
       $('okhint').textContent = hintMsg;
       return;
     }
+    if (PREVIEW) { // screenshots never send a real check
+      done = true; popOpen = true; hintMsg = ''; render(false);
+      return;
+    }
     sending = true;
     ok.classList.add('sending');
     fetch(CHECKS_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email: email, day: 1 })
+      body: JSON.stringify({ email: email, day: DAY_NUM })
     }).then(function (r) {
       sending = false;
       if (r.ok) {
@@ -669,12 +731,12 @@ main.p2main { width: min(620px, 100%); }
         hintMsg = '';
         render(false);
       } else {
-        hintMsg = 'Connection issue — tap OK to try again.';
+        hintMsg = 'Connection issue — tap COMPLETED to try again.';
         render(false);
       }
     }).catch(function () {
       sending = false;
-      hintMsg = 'Connection issue — tap OK to try again.';
+      hintMsg = 'Connection issue — tap COMPLETED to try again.';
       render(false);
     });
   };
@@ -700,8 +762,8 @@ main.p2main { width: min(620px, 100%); }
     renderStage();
   }
   render(false);
-  renderDates();
-  setInterval(function () { tick(); renderDates(); }, 1000);
+  renderGifts();
+  setInterval(tick, 1000);
   tick();
 })();
 </script>
