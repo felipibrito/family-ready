@@ -30,14 +30,14 @@
 <header class="site-header">
   <a class="wordmark" href="index.html">FAMILY <em>READY</em></a>
   <nav class="site-nav">
-    <a href="index.html#challenge">The Challenge</a>
+    <a href="next-steps.html#challenge">The Challenge</a>
     <a href="c2-guide.html">The Guide</a>
     <a href="partners.html">Partners</a>
     <a href="d4-help-refunds.html">Help</a>
     <a href="d5-contact.html">Contact</a>
   </nav>
 </header>
-<main class="narrow">
+<main>
   <section>
     <p class="kicker">Signup confirmed</p>
     <h1>You're <em>in</em></h1>
@@ -49,14 +49,135 @@
     <ol>
       <li><b>Check your inbox</b> for an email from <b>Family Ready Team</b> — and check the <b>Spam</b> and <b>Promotions</b> folders too.</li>
       <li><b>Mark it "not spam"</b> and add Family Ready Team to your contacts, so the three lessons land in your inbox.</li>
-      <li><b>On November 14</b>, open Day 1 and take your first step — it takes about 4 minutes.</li>
+      <li><b>On November 14</b>, open Day 1 below and take your first step — it takes about 4 minutes.</li>
     </ol>
-    <a class="btn" href="index.html#day1">Go to Day 1</a>
-    <a class="btn ghost" href="a3-help-check-inbox.html">Can't find our email?</a>
+    <p class="microcopy">Can't find our email? <a href="a3-help-check-inbox.html">How to pull it out of Spam or Promotions</a></p>
+  </section>
+
+  <section class="card gate-teaser" id="challenge-teaser">
+    <p class="kicker left">Inside the free challenge</p>
+    <h2>Your 3 days, <em>ready when you are</em></h2>
+    <div class="teaser-list">
+      <div class="teaser-row"><span>Day 1</span><b>Step 1 — Connect &amp; Light</b><small>Saturday, November 14, 2026</small></div>
+      <div class="teaser-row"><span>Day 2</span><b>Step 2 — Build Your System</b><small>Sunday, November 15, 2026</small></div>
+      <div class="teaser-row"><span>Day 3</span><b>Step 3 — Go &amp; Review</b><small>Monday, November 16, 2026</small></div>
+    </div>
+    <p class="microcopy">Each day opens on its morning below — the video, the action and your check.</p>
+  </section>
+
+  <section id="challenge">
+    <h2>The 3-day <em>challenge</em></h2>
+    <p class="progress-note" id="check-progress">Your progress: <b>0 of 3</b> days checked</p>
+    <div class="check-email" id="check-email-bar" hidden>
+      <label for="check-email">To record your check, enter the email you signed up with:</label>
+      <input type="email" id="check-email" placeholder="you@example.com" autocomplete="email">
+      <button type="button" class="btn ghost" id="check-email-save">Save</button>
+      <p class="microcopy" id="check-email-msg"></p>
+    </div>
+
+    <article class="card day-card" id="day1">
+      <p class="kicker left">Day 1 · Saturday, November 14, 2026</p>
+      <h3>Step 1 — <em>Connect &amp; Light</em></h3>
+      <div class="video-slot" role="img" aria-label="Day 1 lesson video placeholder">
+        <b>Day 1 video</b>
+        <span>The lesson video appears here on the morning of November 14.</span>
+      </div>
+      <p><b>Today's action:</b> write down how your family finds each other if phones fail — an out-of-area contact and your meeting points, on paper — and test the flashlight you would reach for in the dark. That is the whole step.</p>
+      <button type="button" class="btn ghost check-btn" data-check data-day="1" aria-pressed="false">Mark Day 1 done</button>
+    </article>
+    <p class="day-foot">Can't wait for the guide? <a href="b6-my-product.html">My Product</a> — the guide is available today at the regular price.</p>
+
+    <article class="card day-card" id="day2">
+      <p class="kicker left">Day 2 · Sunday, November 15, 2026</p>
+      <h3>Step 2 — <em>Build Your System</em></h3>
+      <div class="video-slot" role="img" aria-label="Day 2 lesson video placeholder">
+        <b>Day 2 video</b>
+        <span>The lesson video appears here on the morning of November 15. Day 2 builds on Day 1 — finish Day 1 first.</span>
+      </div>
+      <p><b>Today's action:</b> count what you have. Go through your Day 1 list together, item by item — then count your food and stored water (the planning reference is one gallon of water per person, per day), note what each person in your home needs, and put your important information in one place.</p>
+      <p><b>Today's tip:</b> when the power goes out, keep the refrigerator and freezer doors closed — a closed refrigerator keeps food cold for about 4 hours, and a full, closed freezer for about 48 hours. <span class="mut">(Ready.gov)</span></p>
+      <button type="button" class="btn ghost check-btn" data-check data-day="2" aria-pressed="false">Mark Day 2 done</button>
+    </article>
+
+    <article class="card day-card" id="day3">
+      <p class="kicker left">Day 3 · Monday, November 16, 2026</p>
+      <h3>Step 3 — <em>Go &amp; Review</em></h3>
+      <div class="video-slot" role="img" aria-label="Day 3 lesson video placeholder">
+        <b>Day 3 video</b>
+        <span>The lesson video appears here on the morning of November 16.</span>
+      </div>
+      <p><b>Today's action:</b> decide how your family leaves home if you ever need to — the way out of every room, your outdoor meeting point, and where you would go — then review the whole plan together, as a family.</p>
+      <p>Finish Day 3 and you complete the challenge: your two free gifts are delivered to your inbox by email, and your <b>early access</b> to the guide opens on the night of November 16 — before sales open to everyone.</p>
+      <button type="button" class="btn ghost check-btn" data-check data-day="3" aria-pressed="false">Mark Day 3 done</button>
+    </article>
   </section>
 
   <section>
-    <p class="microcopy">Day 2 follows on Sunday, November 15, and Day 3 on Monday, November 16. Finish all three and your free gifts — the Family Stock Calculator and your Certificate of Completion — are delivered to your inbox by email.</p>
+    <h2>Finish all 3 days — <em>get your gifts</em></h2>
+    <div class="hub-links">
+      <div class="hub-link"><b>ReadyStock Calculator</b><span>Estimates for your household: food, water, hygiene, lighting and more — for 3, 7, 14 or 30 days</span></div>
+      <div class="hub-link"><b>Certificate of Completion</b><span>Your certificate for finishing the free 3-day challenge — it attests to the challenge, and nothing more</span></div>
+    </div>
+    <p class="microcopy">Your gifts are delivered by email the moment you mark Day 3 done — the links are yours and do not expire.</p>
+  </section>
+
+  <section class="card gold">
+    <p class="kicker left">The next step</p>
+    <h2>The Practical <em>Survival Guide</em></h2>
+    <p><b>Simple, step-by-step preparedness for blackouts, disasters, unrest, pandemics, and other emergencies.</b> 1,329 pages · 518 figures · Introduction, 26 chapters, and Appendices A and B — built from FEMA, CDC, the American Red Cross, and the U.S. Army field manual FM 21-76, with every claim traced to an official source.</p>
+    <div>
+      <div class="price-row"><span>Regular price — <b>today</b></span><span>$94</span></div>
+      <div class="price-row"><span>Launch price — <b>November 17, 2026 to February 17, 2027</b></span><span class="now">$47</span></div>
+      <div class="price-row"><span class="was">From February 18, 2027</span><span>$94</span></div>
+    </div>
+    <a class="btn" href="c2-guide.html">See the guide</a>
+    <p class="microcopy">Sales open November 17, 2026 · Checkout and delivery through Whop · 60-day money-back guarantee</p>
+  </section>
+
+  <section class="card">
+    <h3>Founding Family — <em>#001 to #100</em></h3>
+    <p>The first 100 buyers — starting with the early access on the night of November 16, 2026 — become our <b>Founding Family</b>. Each one receives their own number, #001 through #100, assigned in order of purchase.</p>
+    <p><a href="d3-early-access.html">How early access and Founding Family work</a></p>
+  </section>
+
+  <section class="card">
+    <h2>FAQ</h2>
+    <p><b>What format is the book?</b><br>
+    A PDF e-book — 1,329 pages, with 518 captioned images and diagrams. It opens on any phone, tablet, or computer, and the checklists are designed to be printed.</p>
+    <p><b>How do I receive it?</b><br>
+    After checkout through Whop, your download link appears on the confirmation page and is also sent to your email.</p>
+    <p><b>Where does the guidance come from?</b><br>
+    FEMA, CDC, the American Red Cross, and the U.S. Army field manual FM 21-76. Every claim in the guide is traced to an official source.</p>
+    <p><b>Is this a "prepper" or military book?</b><br>
+    No. It is a civilian family preparedness guide: no weapons, no combat tactics, no fearmongering. It focuses on safety, supplies, and step-by-step procedures.</p>
+    <p><b>I'm a beginner. Is the challenge too advanced?</b><br>
+    No. Each day is one short video and one simple action you can finish in minutes, with supplies you mostly already own.</p>
+    <p><b>What if the guide is not for me?</b><br>
+    Then the guarantee decides, not an argument: every product carries a <b>60-day money-back guarantee</b>.</p>
+    <p><b>Is this medical or legal advice?</b><br>
+    No. Family Ready publishes general preparedness information. In an emergency, call 911 and follow official instructions.</p>
+  </section>
+
+  <section class="hub-group">
+    <h2>Every <em>page</em></h2>
+    <div class="hub-links">
+      <a class="hub-link" href="start.html"><b>Join the challenge</b><span>Sign up free for November 14–16</span></a>
+      <a class="hub-link" href="a3-help-check-inbox.html"><b>Can't find our email?</b><span>Pull our emails out of Spam or Promotions — Gmail, Outlook, iCloud</span></a>
+      <a class="hub-link" href="b5-day2-locked.html"><b>Day 2 opens November 15</b><span>Why Day 2 comes after Day 1</span></a>
+      <a class="hub-link" href="b6-my-product.html"><b>My Product</b><span>The guide today at the regular price, with a full-price gift</span></a>
+      <a class="hub-link" href="c2-guide.html"><b>The Practical Survival Guide</b><span>The complete book — with a free sample</span></a>
+      <a class="hub-link" href="c3-action-kit.html"><b>Family Ready Action Kit</b><span>Workbook, printable cards and audio edition</span></a>
+      <a class="hub-link" href="c3-severe-weather.html"><b>Severe Weather Playbook</b><span>69 pages of action cards for storms and more</span></a>
+      <a class="hub-link" href="c3-blackout.html"><b>Blackout &amp; Grid-Down Playbook</b><span>64 pages for when the power stays out</span></a>
+      <a class="hub-link" href="c3-field-garden.html"><b>Field &amp; Garden Companion</b><span>70 pages of field skills and the emergency garden</span></a>
+      <a class="hub-link" href="c9-thank-you.html"><b>Thank you — order confirmed</b><span>Downloads, charges and your guarantee</span></a>
+      <a class="hub-link" href="c10-library.html"><b>The complete library</b><span>All 5 products — $165 in the launch window</span></a>
+      <a class="hub-link" href="d1-finish-order.html"><b>Your order is still waiting</b><span>Finish the order you started</span></a>
+      <a class="hub-link" href="d2-final-price.html"><b>The launch price ends Feb 17, 2027</b><span>The real countdown and what changes</span></a>
+      <a class="hub-link" href="d3-early-access.html"><b>Early access — 3 of 3 checks</b><span>Founding Family #001–#100 explained</span></a>
+      <a class="hub-link" href="partners.html"><b>Creator partners</b><span>30% commission on the guide — how the program works</span></a>
+      <a class="hub-link" href="d5-about.html"><b>About Family Ready</b><span>Why this project exists</span></a>
+    </div>
   </section>
 </main>
 <footer class="site-footer">
@@ -70,6 +191,82 @@
   </nav>
   <p class="footer-note">Family Ready publishes general preparedness information. It is not medical or legal advice. In an emergency, call 911 and follow official instructions.</p>
   <p class="footer-copy">© 2026 Family Ready · The Practical Survival Guide — 2026 edition</p>
+  <p class="footer-copy footer-company">Family Ready Guides</p>
 </footer>
+<script>
+(function () {
+  var CHECKS_URL = 'https://hook.us2.make.com/mzjvi8tazzmx435v3n08vb7n1h47b6om';
+  var KEY = 'fr-challenge-checks';
+  var EKEY = 'fr-challenge-email';
+  var saved = {};
+  try { saved = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { saved = {}; }
+  var email = '';
+  try {
+    var fromUrl = new URLSearchParams(window.location.search).get('email');
+    if (fromUrl) { email = fromUrl.trim(); localStorage.setItem(EKEY, email); }
+    else { email = localStorage.getItem(EKEY) || ''; }
+  } catch (e) {}
+  var btns = document.querySelectorAll('[data-check]');
+  var note = document.getElementById('check-progress');
+  var bar = document.getElementById('check-email-bar');
+  var input = document.getElementById('check-email');
+  var saveBtn = document.getElementById('check-email-save');
+  var msg = document.getElementById('check-email-msg');
+  var pendingDay = null;
+  function render() {
+    var n = 0;
+    btns.forEach(function (b) {
+      var done = !!saved[b.getAttribute('data-day')];
+      if (done) n++;
+      b.classList.toggle('done', done);
+      b.textContent = done ? ('✓ Day ' + b.getAttribute('data-day') + ' done') : ('Mark Day ' + b.getAttribute('data-day') + ' done');
+      b.setAttribute('aria-pressed', done ? 'true' : 'false');
+    });
+    if (note) note.innerHTML = 'Your progress: <b>' + n + ' of 3</b> days checked';
+  }
+  function sendCheck(day) {
+    if (!email) {
+      try { email = (localStorage.getItem(EKEY) || '').trim(); } catch (e) { email = ''; }
+      if (input && email) input.value = email;
+    }
+    if (!email) {
+      pendingDay = day;
+      if (bar) { bar.hidden = false; }
+      if (msg) msg.textContent = 'One quick step: tell us which email you signed up with, so your Day ' + day + ' check counts toward your gifts and early access.';
+      if (input) { try { input.focus(); } catch (e) {} }
+      return;
+    }
+    try {
+      fetch(CHECKS_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email, day: Number(day) }),
+        keepalive: true
+      }).catch(function () {});
+    } catch (e) {}
+  }
+  btns.forEach(function (b) {
+    b.addEventListener('click', function () {
+      var d = b.getAttribute('data-day');
+      saved[d] = !saved[d];
+      try { localStorage.setItem(KEY, JSON.stringify(saved)); } catch (e) {}
+      if (saved[d]) sendCheck(d);
+      render();
+    });
+  });
+  if (saveBtn) {
+    saveBtn.addEventListener('click', function () {
+      var v = input ? (input.value || '').trim() : '';
+      if (!v || v.indexOf('@') < 0) { if (msg) msg.textContent = 'Please enter a valid email address.'; return; }
+      email = v;
+      try { localStorage.setItem(EKEY, email); } catch (e) {}
+      if (bar) bar.hidden = true;
+      if (pendingDay) { var d = pendingDay; pendingDay = null; sendCheck(d); }
+    });
+  }
+  if (input && email) input.value = email;
+  render();
+})();
+</script>
 </body>
 </html>
