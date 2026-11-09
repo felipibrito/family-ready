@@ -74,6 +74,36 @@
 </footer>
 <script>
 (function () {
+  // Affiliate src — same reading/cleaning as the capture page
+  // (index.html): ?src= (or ?utm_source=) is trimmed, whitespace
+  // becomes '-', max 80 chars. A non-empty code is stored under
+  // 'fr-src' (an empty/missing one never overwrites a stored
+  // code), then propagated to internal .html links — calculator,
+  // certificate, footer pages — so the code survives navigation
+  // (pattern from the Day 3 page). Standalone script: it runs
+  // even when the gift-claim script below has no email to work with.
+  function cleanSource(value) {
+    return (value || '').toString().trim().replace(/\s+/g, '-').slice(0, 80);
+  }
+  var params = new URLSearchParams(window.location.search);
+  var code = cleanSource(params.get('src') || params.get('utm_source') || '');
+  try {
+    if (code) localStorage.setItem('fr-src', code);
+    if (!code) code = cleanSource(localStorage.getItem('fr-src') || '');
+  } catch (e) {}
+  if (!code) return;
+  document.querySelectorAll('a[href]').forEach(function (a) {
+    var href = a.getAttribute('href');
+    if (!href) return;
+    if (/^(https?:)?\/\//i.test(href) || href.charAt(0) === '#' || href.indexOf('mailto:') === 0) return;
+    if (href.indexOf('.html') === -1) return;
+    if (/[?&]src=/.test(href)) return;
+    a.setAttribute('href', href + (href.indexOf('?') === -1 ? '?' : '&') + 'src=' + encodeURIComponent(code));
+  });
+})();
+</script>
+<script>
+(function () {
   // Family Ready — marca "brinde retirado" (Brevo GIFTS_CLAIMED via Make, cenario dos checks).
   // A pessoa chega pelo e-mail (template 25 / E12 / E14) com ?email= na URL; sem isso, usa o
   // e-mail salvo neste navegador no cadastro/checks (fr-challenge-email). A marca e gravada
