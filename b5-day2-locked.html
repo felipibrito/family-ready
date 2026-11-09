@@ -373,6 +373,32 @@ main.pbmain { width: min(620px, 100%); }
     else { email = storeGet(EKEY) || ''; }
   } catch (e) { email = ''; }
 
+  /* ---------- affiliate src ----------
+     Same reading/cleaning as the capture page (index.html):
+     ?src= (or ?utm_source=) is trimmed, whitespace becomes '-',
+     max 80 chars. A non-empty code is stored under 'fr-src' —
+     an empty/missing one never overwrites a stored code. The
+     code is then propagated to outbound links — the "Visit
+     our site" store link and every internal .html link — so
+     it survives the whole journey (pattern from Day 3 page). */
+  function cleanSource(value) {
+    return (value || '').toString().trim().replace(/\s+/g, '-').slice(0, 80);
+  }
+  var srcCode = cleanSource(params.get('src') || params.get('utm_source') || '');
+  if (srcCode) storeSet('fr-src', srcCode);
+  if (!srcCode) srcCode = cleanSource(storeGet('fr-src') || '');
+  if (srcCode) {
+    document.querySelectorAll('a[href]').forEach(function (a) {
+      var href = a.getAttribute('href');
+      if (!href || href.charAt(0) === '#' || href.indexOf('mailto:') === 0) return;
+      var isInternal = href.indexOf('.html') !== -1 && !/^(https?:)?\/\//i.test(href);
+      var isSiteLink = a.classList && a.classList.contains('pb-sitelink');
+      if (!isInternal && !isSiteLink) return;
+      if (/[?&]src=/.test(href)) return;
+      a.setAttribute('href', href + (href.indexOf('?') === -1 ? '?' : '&') + 'src=' + encodeURIComponent(srcCode));
+    });
+  }
+
   /* ---------- clocks ---------- */
   var cd = $('cd');
   function pad(n) { return (n < 10 ? '0' : '') + n; }
