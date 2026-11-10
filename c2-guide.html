@@ -9,6 +9,20 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+<style>
+/* Visual fix 2026-11-09: cover at the offer + real-page samples (format only) */
+.c2-cover {
+  display: block; width: 200px; max-width: 62%; margin: 6px auto 16px; border-radius: 12px;
+  border: 1px solid rgba(255,178,46,.45); box-shadow: 0 14px 30px rgba(0,0,0,.45);
+}
+.c2-peek { display: flex; gap: 8px; margin: 14px 0 2px; }
+.c2-peek figure { margin: 0; flex: 1; }
+.c2-peek img {
+  display: block; width: 100%; border-radius: 8px;
+  border: 1px solid rgba(120,160,220,.25); box-shadow: 0 8px 18px rgba(0,0,0,.4);
+}
+.c2-peek figcaption { color: #8ea3c0; font-size: 10.5px; text-align: center; margin-top: 5px; letter-spacing: .4px; }
+</style>
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-3NE1PWC07E"></script>
 <script>
@@ -95,6 +109,12 @@
       <li><b>518 instructional images and diagrams with captions</b>, throughout</li>
       <li>Written in <b>plain language (reading level: grades 6–7)</b>, so a tired parent can follow it at 3 in the morning</li>
     </ul>
+    <div class="c2-peek" aria-label="A look inside the guide">
+      <figure><img src="assets/peek-1.jpg" alt="Real page from the guide: a chapter opening" loading="lazy"><figcaption>Chapter openings</figcaption></figure>
+      <figure><img src="assets/peek-2.jpg" alt="Real page from the guide: a visual step-by-step checklist" loading="lazy"><figcaption>Visual checklists</figcaption></figure>
+      <figure><img src="assets/peek-3.jpg" alt="Real page from the guide: a labeled home diagram" loading="lazy"><figcaption>Clear diagrams</figcaption></figure>
+      <figure><img src="assets/peek-4.jpg" alt="Real page from the guide: the 30-day plan, one step a day" loading="lazy"><figcaption>The 30-day plan</figcaption></figure>
+    </div>
   </section>
 
   <section class="card">
@@ -123,6 +143,7 @@
 
   <section class="card gold">
     <h2>Price and <em>guarantee</em></h2>
+    <img class="c2-cover" src="assets/cover-square.jpg" alt="Cover of The Practical Survival Guide — Family Ready Guides">
     <div>
       <div class="price-row"><span>Regular price — <b>today</b></span><span>$94</span></div>
       <div class="price-row"><span>Launch price — <b>November 17, 2026</b> to <b>February 17, 2027</b></span><span class="now">$47</span></div>

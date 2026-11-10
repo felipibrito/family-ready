@@ -183,7 +183,7 @@ main.pbmain { width: min(620px, 100%); }
 .d3-versus figure { margin: 0; }
 .d3-versus img {
   display: block; width: 100%; border-radius: 12px;
-  aspect-ratio: 1/1; object-fit: cover;
+  aspect-ratio: 1/1; object-fit: cover; object-position: center 30%;
   border: 1px solid rgba(255,178,46,.45);
   box-shadow: 0 14px 30px rgba(0,0,0,.45);
 }
@@ -321,8 +321,13 @@ main.pbmain { width: min(620px, 100%); }
   border-radius: 12px; padding: 10px 12px;
 }
 .d3-stack-row img, .d3-stack-row .d3-stack-ico {
-  flex: 0 0 54px; width: 54px; height: 54px; border-radius: 9px; object-fit: cover;
+  flex: 0 0 120px; width: 120px; height: 120px; border-radius: 10px; object-fit: cover;
   border: 1px solid rgba(255,178,46,.4);
+}
+.d3-stack-row .d3-stack-ico svg { width: 52px; height: 52px; }
+@media (max-width: 420px) {
+  .d3-stack-row img, .d3-stack-row .d3-stack-ico { flex-basis: 96px; width: 96px; height: 96px; }
+  .d3-stack-row .d3-stack-ico svg { width: 42px; height: 42px; }
 }
 .d3-stack-row .d3-stack-ico {
   display: flex; align-items: center; justify-content: center;

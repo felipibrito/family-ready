@@ -9,6 +9,13 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+<style>
+/* Visual fix 2026-11-09: gift previews next to the download buttons (same style as Day 3) */
+.b4-gift-thumb {
+  display: block; width: 100%; border-radius: 10px; margin: 0 0 12px;
+  border: 1px solid rgba(255,178,46,.4); box-shadow: 0 10px 22px rgba(0,0,0,.4);
+}
+</style>
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-3NE1PWC07E"></script>
 <script>
@@ -47,6 +54,7 @@
       <li>Essential-kit quantities, per person and for the whole household</li>
     </ul>
     <p class="mut">It opens in your browser and works offline. Print your result and keep it with your supplies.</p>
+    <img class="b4-gift-thumb" src="assets/gift-calc-thumb.jpg" alt="Preview of the ReadyStock Calculator with a sample family plan" loading="lazy">
     <a class="btn" href="calculadora.html" data-gift-claim>Open the calculator</a>
     <button class="btn ghost" id="dlCalcBtn" type="button" data-gift-claim>Download the calculator</button>
     <p class="mut">Tip: download it to keep the calculator saved on your phone — once saved, it works even without internet.</p>
@@ -56,6 +64,7 @@
     <h3>Gift 2 — Certificate of Completion</h3>
     <p>Your certificate for completing the free 3-day Family Ready challenge. Add your name, print it, and keep it with your family plan — a reminder that your household did the work.</p>
     <p class="mut">One honest note, in plain sight: this certificate records that you completed our free challenge. It is a personal keepsake from Family Ready — it is not an official credential, certification, or qualification of any kind.</p>
+    <img class="b4-gift-thumb" src="assets/gift-cert-thumb.jpg" alt="Preview of the Family Ready Certificate of Completion with a sample name" loading="lazy">
     <a class="btn" href="certificado.html" data-gift-claim>Get my certificate</a>
   </section>
 </main>
