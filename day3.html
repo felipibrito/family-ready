@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Day 3 — Challenge Complete — Family Ready Guides</title>
-<meta name="description" content="You completed the 3-Day Family Ready Challenge. Claim your gifts and get The Practical Survival Guide at the completers' launch price.">
+<meta name="description" content="You completed the 3-Day Family Ready Challenge. Claim your gifts and get The Practical Survival Guide at the launch price.">
 <script>
   // Access guard (same pattern as next-steps.html / b5-day2-locked.html):
   // a visitor arriving from a challenge email link (?email=...) counts as
@@ -362,7 +362,7 @@ main.pbmain { width: min(620px, 100%); }
   <div class="pb-bar-label"><b>DAY 3 OF 3 — COMPLETE</b></div>
 
   <!-- 2) Announcement strip (one sentence, no button) -->
-  <p class="d3-strip">Challenge complete. Your 2 gifts are below — and completers get the guide at 50% off when doors open Nov 17, 9:00 AM ET. <a href="#offer" id="skipOffer">Skip to the offer ↓</a></p>
+  <p class="d3-strip">Challenge complete. Your 2 gifts are below — and the guide is 50% off during the launch window, November 17, 2026 – February 17, 2027. <a href="#offer" id="skipOffer">Skip to the offer ↓</a></p>
 
   <!-- 3) Day 3 opening video — gate identical to Day 1 / Day 2:
        video (or slot) first; the rest of the page stays hidden
@@ -395,11 +395,11 @@ main.pbmain { width: min(620px, 100%); }
 
   <!-- 5) Campaign — completers' 50% off, immediately after the gifts -->
   <section class="d3-campaign" id="offer">
-    <h3>Your reward for finishing: <em>50% off</em></h3>
+    <h3>Launch price: <em>50% off</em></h3>
     <img class="d3-campaign-cover" src="assets/cover-square.jpg" alt="Cover of The Practical Survival Guide — Family Ready Guides">
     <p class="d3-spec">1,329 PAGES · 27 CHAPTERS · INSTANT DOWNLOAD</p>
     <p class="d3-price"><b>$47</b> <span>— price after launch: $94</span></p>
-    <p>You finished the challenge — so the complete guide is yours at half price while the launch window is open.</p>
+    <p>The launch window is open: the complete guide is half price until February 17, 2027.</p>
     <a class="d3-buy" data-buy>Get the guide — $47</a>
     <p class="d3-buy-sub">Instant download · 30-day guarantee · Secure checkout on Whop</p>
     <p class="d3-countdown" data-countdown hidden></p>
@@ -676,7 +676,7 @@ main.pbmain { width: min(620px, 100%); }
 
   /* ================= CONSTANTS ================= */
   var OPENING_VIDEO_URL = ''; // Day 3 (pitch) video: paste the hosted URL when produced
-  var TARGET = new Date('2026-11-17T09:00:00-05:00'); // sales open — Nov 17, 2026, 9:00 AM ET
+  var TARGET = new Date('2026-11-17T00:00:00-05:00'); // sales open — Nov 17, 2026, 12:00 AM ET (midnight)
   var WHOP_BASE_URL = 'https://whop.com/family-ready/the-practical-survival-guide';
   var WHOP_AFFILIATE_PARAM = 'a'; // Whop affiliate param: ?a=<affiliate username> (confirmed in the Whop portal)
   var CHECKS_URL = 'https://hook.us2.make.com/mzjvi8tazzmx435v3n08vb7n1h47b6om'; // same checks webhook as b4
@@ -897,7 +897,7 @@ main.pbmain { width: min(620px, 100%); }
         b.classList.add('disabled');
         b.setAttribute('aria-disabled', 'true');
         b.removeAttribute('href');
-        b.textContent = 'Sales open Nov 17 — 9:00 AM ET';
+        b.textContent = 'Sales open Nov 17 — 12:00 AM ET (midnight)';
       }
     });
     var cd = document.querySelector('[data-countdown]');
@@ -915,7 +915,7 @@ main.pbmain { width: min(620px, 100%); }
     var d = Math.floor(s / 86400); s -= d * 86400;
     var h = Math.floor(s / 3600); s -= h * 3600;
     var m = Math.floor(s / 60); s -= m * 60;
-    cd.textContent = 'Opens in ' + d + 'd ' + h + 'h ' + m + 'm ' + s + 's · November 17, 9:00 AM ET';
+    cd.textContent = 'Opens in ' + d + 'd ' + h + 'h ' + m + 'm ' + s + 's · November 17, 12:00 AM ET (midnight)';
   }
 
   // Disabled buttons must never navigate.
