@@ -114,6 +114,23 @@
     .fineprint { margin-top:12px; }
   }
 </style>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '2394159414323394');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=2394159414323394&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
 </head>
 <body>
 <div class="glow g1"></div><div class="glow g2"></div>
@@ -144,7 +161,7 @@
 
   <div class="congrats"><span class="cg">Congratulations</span> — you are now part of the Family Ready movement: families who decided to be prepared.</div>
 
-  <p class="summary">For completing the 3-Day Family Ready Challenge — November 15–17, 2026 — and taking three real steps to protect their family: connection &amp; light, food &amp; water, and the plan to leave and return safely.</p>
+  <p class="summary">For completing the 3-Day Family Ready Challenge — November 15–17, 2026 — and taking three real steps to protect their family: the kit, food &amp; water, and the plan to leave and return safely.</p>
 
   <div class="bottom">
     <div class="field">
@@ -339,7 +356,7 @@
     // body text (exact wording)
     ctx.font = '39px Inter, sans-serif';
     ctx.fillStyle = BODY;
-    var bodyTxt = 'For completing the 3-Day Family Ready Challenge — November 15–17, 2026 — and taking three real steps to protect their family: connection & light, food & water, and the plan to leave and return safely.';
+    var bodyTxt = 'For completing the 3-Day Family Ready Challenge — November 15–17, 2026 — and taking three real steps to protect their family: the kit, food & water, and the plan to leave and return safely.';
     var lines = wrapText(ctx, bodyTxt, 1480);
     for (var i = 0; i < lines.length; i++) ctx.fillText(lines[i], CX, 844 + i * 57);
 

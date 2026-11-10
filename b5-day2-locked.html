@@ -257,6 +257,23 @@ main.pbmain { width: min(620px, 100%); }
 .pb-gift span { font-size: 10px; color: #8ea3c0; display: block; margin-top: 2px; }
 .pb-replay { display: block; margin: 12px auto 0; background: transparent; border: none; color: #8ea3c0; font-size: 11px; text-decoration: underline; cursor: pointer; font-family: inherit; }
 </style>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '2394159414323394');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=2394159414323394&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
 </head>
 <body>
 <header class="site-header">
@@ -299,7 +316,7 @@ main.pbmain { width: min(620px, 100%); }
       </div>
       <div class="pb-bar-label">DAY 1 <b>COMPLETED</b> · DAY 2 OF 3</div>
       <h1 class="pb-title">DAY 2 — <em>FOOD &amp; WATER</em></h1>
-      <p class="pb-sub">Today: water and food for everyone in your home — and how to make it last.</p>
+      <p class="pb-sub">Yesterday you stored it. Today you make it last.</p>
       <div class="pb-guide-row" id="story">
         <div class="pb-avatar">FR</div>
         <div class="pb-bubble" id="bubble"></div>
@@ -316,8 +333,8 @@ main.pbmain { width: min(620px, 100%); }
       <div id="pop"></div>
       <div class="pb-gifts-title">ON DAY 3, YOU WILL RECEIVE</div>
       <div class="pb-gifts">
-        <div class="pb-gift" id="gift1"><div class="pb-gic"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h4"/></svg></div><b>ReadyStock Calculator</b><span data-gift-line>Complete Day 3 to unlock · Nov 17</span></div>
-        <div class="pb-gift" id="gift2"><div class="pb-gic"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="9" r="5"/><path d="M9 13l-2 8 5-3 5 3-2-8"/></svg></div><b>Completion Certificate</b><span data-gift-line>Complete Day 3 to unlock · Nov 17</span></div>
+        <div class="pb-gift" id="gift1"><div class="pb-gic"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h4"/></svg></div><b>ReadyStock Calculator</b><span data-gift-line>Complete Day 3 to unlock · Nov 17, 9:00 AM</span></div>
+        <div class="pb-gift" id="gift2"><div class="pb-gic"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="9" r="5"/><path d="M9 13l-2 8 5-3 5 3-2-8"/></svg></div><b>Completion Certificate</b><span data-gift-line>Complete Day 3 to unlock · Nov 17, 9:00 AM</span></div>
       </div>
       <button class="pb-replay" id="replay" type="button" hidden>Watch the video again</button>
     </div>
@@ -355,7 +372,7 @@ main.pbmain { width: min(620px, 100%); }
   var MKEY = 'fr-d2-marks';
   var DKEY = 'fr-d2-done';
   var VKEY = 'fr-d2-vid';
-  var TARGET = new Date('2026-11-17T00:00:00-05:00').getTime();
+  var TARGET = new Date('2026-11-17T09:00:00-05:00').getTime();
   var DAY2_AT = new Date('2026-11-16T00:00:00-05:00').getTime();
 
   function $(id) { return document.getElementById(id); }
@@ -575,7 +592,7 @@ main.pbmain { width: min(620px, 100%); }
     if (pr && pr.catch) pr.catch(function () { playBtn.hidden = false; snd.hidden = true; });
   }
 
-  /* ---------- gifts unlock state (Day 3, Nov 17 12:00 AM ET) ---------- */
+  /* ---------- gifts unlock state (Day 3, Nov 17 9:00 AM ET) ---------- */
   function renderGifts() {
     if (Date.now() < TARGET) return;
     ['gift1', 'gift2'].forEach(function (id) {
