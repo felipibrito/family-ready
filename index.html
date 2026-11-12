@@ -139,6 +139,22 @@ src="https://www.facebook.com/tr?id=2394159414323394&ev=PageView&noscript=1"
     });
   }
 
+  function decorateInternalLinks() {
+    // Carry the creator code into the site's own pages (footer/menu
+    // .html links) so it survives if the visitor browses before signing
+    // up. Same pattern as the challenge pages: real codes only — the
+    // 'site' fallback is not propagated — and never to external links.
+    if (!source || source === 'site') return;
+    document.querySelectorAll('a[href]').forEach(function (a) {
+      var href = a.getAttribute('href');
+      if (!href || href.charAt(0) === '#' || href.indexOf('mailto:') === 0 || href.indexOf('tel:') === 0) return;
+      var isInternal = href.indexOf('.html') !== -1 && !/^(https?:)?\/\//i.test(href);
+      if (!isInternal) return;
+      if (/[?&]src=/.test(href)) return;
+      a.setAttribute('href', href + (href.indexOf('?') === -1 ? '?' : '&') + 'src=' + encodeURIComponent(source));
+    });
+  }
+
   var form = document.getElementById('capture-form');
   var success = document.getElementById('capture-success');
   var successTitle = document.getElementById('capture-success-title');
@@ -203,6 +219,7 @@ src="https://www.facebook.com/tr?id=2394159414323394&ev=PageView&noscript=1"
   });
 
   decorateWhopLinks();
+  decorateInternalLinks();
 
   if (storageGet(UNLOCK_KEY) === '1') {
     unlock({ returning: true });

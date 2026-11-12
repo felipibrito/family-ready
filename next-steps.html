@@ -18,7 +18,7 @@
           localStorage.setItem('fr-unlocked', '1');
           localStorage.setItem('fr-challenge-email', em);
         } else {
-          window.location.replace('index.html');
+          window.location.replace('index.html' + window.location.search);
         }
       }
     } catch (e) { /* storage unavailable: do not trap the visitor */ }

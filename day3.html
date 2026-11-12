@@ -22,7 +22,7 @@
       }
       if (localStorage.getItem('fr-challenge-email')) return;
       if (localStorage.getItem('fr-unlocked') === '1') return;
-      window.location.replace('index.html');
+      window.location.replace('index.html' + window.location.search);
     } catch (e) { /* storage unavailable: do not trap the visitor */ }
   })();
 </script>
